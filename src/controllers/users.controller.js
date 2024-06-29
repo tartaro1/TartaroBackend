@@ -1,3 +1,4 @@
+import { error, success } from "../message/message.js";
 import { UserModel } from "../models/users.js";
 import { validateUser, validatePartialUser } from "../schemas/user.js";
 export class UsersController {
@@ -14,7 +15,7 @@ export class UsersController {
                 // res.render("views.users.ejs", {users});
             }
         } catch (error) {
-            res.status(500).json({error: "Error getting all users" + error.message});
+            error(req, res, 500, "Error getting users")
         }
     }
     static getById = async(req, res) => {
@@ -22,8 +23,8 @@ export class UsersController {
             const {id} = req.params;
             const user = await UserModel.getById({id});
             res.status(200).json(user);
-        } catch (error) {
-            res.status(404).json({error: "User not found" + error.message});
+        } catch (err) {
+            error(req, res, 404, "User not found");
         }
     }
     static createUser = async(req, res) => { 
@@ -33,9 +34,9 @@ export class UsersController {
         }
         try {
             const newUser = await UserModel.createUser({ input: result.data });
-            res.status(201).json(newUser);
+            success(req, res, 201, "User created successfully");
         } catch (error) {
-            res.status(500).json({ error: "Error creating user: " + error.message });
+            error(req, res, 500, "Couldn't create")
         }
     }
     static deleteUser = async (req, res) => {
@@ -43,12 +44,12 @@ export class UsersController {
         const result = await UserModel.deleteUser({ id });
         try {
             if (result.affectedRows === 0) {
-                res.status(404).json({ message: 'User not found' });
+                error(req, res, 404, "User deleted not found");
             } else {
-                res.status(200).json({ message: 'User deleted successfully' });
+                success(req, res, 200, "User deleted successfully");
             }
         } catch (error) {
-            res.status(500).json({ error: 'An error occurred while deleting the user' });
+            error(req, res, 500, "An error occurred while deleting user");
         }
     }
     static updateUser = async (req, res) => {
@@ -56,18 +57,18 @@ export class UsersController {
         const input = req.body;
         try {
             const updatedUser = await UserModel.updateUser({id, input});
-            res.status(200).json(updatedUser);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
+            success(req, res, 201, "User modified successfully");
+        } catch (err) {
+            error(req, res, 400, "An error occurred while updating");
         }
     }
     static loginUser = async (req, res) => {
         const input = req.body
         try {
             const response = await UserModel.login({input});
-            res.status(200).json(response);
-        } catch (error) {
-            res.status(404).json(error.message);
+            success(req, res, 200, "User successfully logged in")
+        } catch (err) {
+            error(req, res, 400, "email or password incorrect");
         }
     }
     

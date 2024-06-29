@@ -3,7 +3,6 @@ import pool from "../config/db.config.js";
 import bcrypt from "bcrypt";
 import { match } from "assert";
 import jwt from "jsonwebtoken";
-import { Acceso, Error1 } from "../message/message.js";
 export class UserModel {
     static getAll = async() => {
         const connection = await pool.getConnection();

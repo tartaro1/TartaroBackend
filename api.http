@@ -54,20 +54,20 @@ GET http://localhost:3000/users
 ### GET ID
 GET http://localhost:3000/users/25
 ### POST USER
-POST http://localhost:3000/users
+POST http://localhost:9200/users
 Content-Type: application/json
 
 {
-    "Nombre": "Esneider",
-    "Celular": "3052308258",
-    "Cedula": 13320975687,
+    "Nombre": "Ese",
+    "Celular": "258",
+    "Cedula": 687,
     "Direccion": "cheesesticks",
-    "Correo": "xxsile7tb9ey@gmail.com",
-    "Contrasena": "esn5iderjj123"
-    "ID_Rol": 3
+    "Correo": "e@gmail.com",
+    "Contrasena": "1",
+    "ID_Rol": 2
 }
 ### DELETE USER
-DELETE http://localhost:3000/users/1
+DELETE http://localhost:9200/users/81
 ### PATCH USER 
 PATCH  http://localhost:3000/users/1
 Content-Type: application/json
@@ -150,6 +150,6 @@ POST http://localhost:9200/users/login
 Content-Type: application/json 
 
 {
-    "Correo": "4",
-    "Contrasena": "4"
+    "Correo": "e7tb9ey@gmail.com",
+    "Contrasena": "1"
 }
