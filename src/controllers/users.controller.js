@@ -66,7 +66,7 @@ export class UsersController {
         const input = req.body
         try {
             const response = await UserModel.login({input});
-            success(req, res, 200, "User successfully logged in")
+            res.json(response)
         } catch (err) {
             error(req, res, 400, "email or password incorrect");
         }

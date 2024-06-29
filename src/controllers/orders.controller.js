@@ -1,3 +1,4 @@
+import { error, success } from "../message/message.js";
 import { OrderModel } from "../models/orders.js";
 
 export class OrdersController {
@@ -22,8 +23,8 @@ export class OrdersController {
         try {
             const order = await OrderModel.getById({id});
             res.json(order);
-        } catch (error) {
-        res.json({error: error});  
+        } catch (err) {
+            error(req, res, 404, "Order not found")
         }
     }
     static update = async(req, res) => {
@@ -32,17 +33,17 @@ export class OrdersController {
         try {
             const updatedOrder = await OrderModel.update({id, input});
             res.status(200).json(updatedOrder); 
-        } catch (error) {
-            res.status(error.status).json({error: error}); 
+        } catch (err) {
+            error(req, res, 500, "An error occurred while updating")
         }
     }
     static delete = async(req, res) => {
         const {id} = req.params;
         try {
             const deletedOrder = await OrderModel.delete({id});
-            res.status(200).json(deletedOrder);
+            success(req, res, 201, "Order deleted successfully")
         } catch (error) {
-            res.status(500).json({error: error.message});
+            error(req, res, 404, "An error occurred while deleting")
         }
     }
     static findByDealer = async(req, res) => {
@@ -50,8 +51,8 @@ export class OrdersController {
             const {dealer} = req.params;
             const orderDealer = await OrderModel.findByDealer({dealer})
             res.json(orderDealer)
-        } catch (error) {
-            res.status(404).json(error)
+        } catch (err) {
+            error(req, res, 404, "Couldn't find order by dealer")
         }
     } 
 }

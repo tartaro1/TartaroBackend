@@ -50,9 +50,12 @@ export class DealersModel {
             ID_Rol,
             Estado
         } = input;
+        const passwordUnencrypted = Contrasena;
         const connection = await pool.getConnection();
         try {
-            const dealer = await connection.query("CALL SP_CREAR_REPARTIDOR(?, ?, ?, ?, ?, ?, ?, ?)", [Nombre, Celular, Cedula, Direccion, Correo, Contrasena, ID_Rol, Estado]);
+            const hash = await bcrypt.hash(passwordUnencrypted, 2);
+            const passwordEncrypted = hash;
+            const dealer = await connection.query("CALL SP_CREAR_REPARTIDOR(?, ?, ?, ?, ?, ?, ?, ?)", [Nombre, Celular, Cedula, Direccion, Correo, passwordEncrypted, ID_Rol, Estado]);
             const newDealer = await connection.query("CALL SP_USUARIO_ID(?)", [dealer[0].insertId]);
             return newDealer[0];
         } catch (error) {
@@ -84,12 +87,21 @@ export class DealersModel {
             Estado
         } = input;
         
-        const passwordUnencrypted = Contrasena;
-        const hash = await bcrypt.hash(passwordUnencrypted, 2);
-        const passwordEncrypted = hash;
         const connection = await pool.getConnection();
         try {
-            const request = await connection.query("CALL SP_MODIFICAR_USUARIO(?,?,?,?,?,?,?,?,?)", [id, Nombre, Celular, Cedula, Direccion, Correo, passwordEncrypted, ID_Rol, Estado]);
+            const [currentPasswordRow] = await connection.query('SELECT Contrasena FROM usuarios WHERE ID_Usuario = ?', [id]);
+            const currentPasswordEncrypted = currentPasswordRow[0].Contrasena;
+    
+            // Verificar si la contraseña ha cambiado
+            let passwordEncrypted = currentPasswordEncrypted;
+            if (Contrasena !== '') {
+                // Generar hash para la nueva contraseña
+                const hash = await bcrypt.hash(Contrasena, 2);
+                passwordEncrypted = hash;
+            }
+    
+            // Llamar al procedimiento almacenado con los datos actualizados
+            const request = await connection.query('CALL SP_MODIFICAR_USUARIO(?,?,?,?,?,?,?,?,?)', [id, Nombre, Celular, Cedula, Direccion, Correo, passwordEncrypted, ID_Rol, Estado]);
             return request;
         } catch (error) {
             throw new Error(error)

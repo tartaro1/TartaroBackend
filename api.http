@@ -5,19 +5,21 @@ GET http://localhost:3000/products/4
 ###Añadir producto
 POST http://localhost:9200/products
 Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDb3JyZW8iOiJlQGdtYWlsLmNvbSIsIlJvbCI6MiwiaWF0IjoxNzE5NjMyMDQ4LCJleHAiOjE3MTk2MzQ0NDh9.CQmAFBNhyxmwtrnMFKka0zbExevtQ7ArMLkyZKZdVE4
 
 {
-    "nombre": "aksdñaksñdla",
+    "nombre": "popo",
     "id_categoria": 3,
-    "marca": "Éxasadad",
+    "marca": "Éad",
     "id_proveedor": 3,
-    "descripcion": "Jeadns anasdadchos",
+    "descripcion": "Jedchos",
     "precio": 300,
     "calificacion": 3,
     "imagen": ""
 }
 ###eliminar
-DELETE http://localhost:3000/products/1
+DELETE http://localhost:9200/products/36
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDb3JyZW8iOiJlQGdtYWlsLmNvbSIsIlJvbCI6MiwiaWF0IjoxNzE5NjMyMDQ4LCJleHAiOjE3MTk2MzQ0NDh9.CQmAFBNhyxmwtrnMFKka0zbExevtQ7ArMLkyZKZdVE4
 
 ###
 GET  http://localhost:9200/detailsOrders
@@ -26,16 +28,25 @@ GET  http://localhost:9200/detailsOrders
 GET http://localhost:9200/detailsOrders/ProveedorA
 
 ###
-PATCH http://localhost:9200/detailsOrders/19
+PATCH http://localhost:9200/products/39
 Content-Type: application/json
 
+
 {
-    "Cantidad": 10
+    "nombre": "p",
+    "id_categoria": 3,
+    "marca": "Éad",
+    "id_proveedor": 3,
+    "descripcion": "Jedchos",
+    "precio": 300,
+    "calificacion": 3,
+    "imagen": ""
 }
 
 ###Pat
-PATCH http://localhost:9200/products/34
+PATCH http://localhost:9200/products/39
 Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDb3JyZW8iOiJlQGdtYWlsLmNvbSIsIlJvbCI6MiwiaWF0IjoxNzE5NjMyMDQ4LCJleHAiOjE3MTk2MzQ0NDh9.CQmAFBNhyxmwtrnMFKka0zbExevtQ7ArMLkyZKZdVE4
 
 {
     
@@ -82,33 +93,35 @@ GET http://localhost:3000/dealers
 ### GET DEALER ID
 GET http://localhost:3000/dealers/2
 ### POST DEALER
-POST http://localhost:3000/dealers
+POST http://localhost:9200/dealers
 Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDb3JyZW8iOiJlQGdtYWlsLmNvbSIsIlJvbCI6MiwiaWF0IjoxNzE5NjMyMDQ4LCJleHAiOjE3MTk2MzQ0NDh9.CQmAFBNhyxmwtrnMFKka0zbExevtQ7ArMLkyZKZdVE4
 
 {
     "Nombre": "Rigoberto",
-    "Celular": "3132728281",
-    "Cedula": 1319197787,
+    "Celular": "31728281",
+    "Cedula": 1197787,
     "Direccion": "cheesesticks loaiza",
-    "Correo": "xfileh1t69ey@gmail.com",
-    "Contrasena": "esdn3gderjj123sid"
+    "Correo": "xf9ey@gmail.com",
+    "Contrasena": "esd"
 }
 ###DELETE DEALER
 DELETE http://localhost:3000/dealers/3
 
 ### PATCH DEALER
-PATCH  http://localhost:9200/users/60
+PATCH  http://localhost:9200/dealers/86
 Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDb3JyZW8iOiJlQGdtYWlsLmNvbSIsIlJvbCI6MiwiaWF0IjoxNzE5NjMyMDQ4LCJleHAiOjE3MTk2MzQ0NDh9.CQmAFBNhyxmwtrnMFKka0zbExevtQ7ArMLkyZKZdVE4
 
 {
-    "Nombre": "Klimber",
-    "Celular": "0",
-    "Cedula": 0,
-    "Direccion": "0",
-    "Correo": "0",
-    "Contrasena": "0",
+    "Nombre": "Rigrto",
+    "Celular": "31728281",
+    "Cedula": 1197787,
+    "Direccion": "cheesesticks loaiza",
+    "Correo": "xf9ey@gmail.com",
+    "Contrasena": "esd",
     "ID_Rol": 1,
-    "Estado": "Desactivado" 
+    "Estado": ""
 }
 
 ### LOGIN USER
@@ -150,6 +163,6 @@ POST http://localhost:9200/users/login
 Content-Type: application/json 
 
 {
-    "Correo": "e7tb9ey@gmail.com",
+    "Correo": "e@gmail.com",
     "Contrasena": "1"
 }

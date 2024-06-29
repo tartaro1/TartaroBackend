@@ -1,3 +1,4 @@
+import { error, success } from "../message/message.js";
 import { DetailsModel } from "../models/detailsOrder.js";
 export class DetailsController {
     static getAll = async (req, res) => {
@@ -12,9 +13,8 @@ export class DetailsController {
                 res.status(404).json(detailsOrders);
                 // res.render("views.detailsOrder.ejs", { detailsOrders });
             }
-
-        } catch (error) {
-            res.status(500).json(error);
+        } catch (err) {
+            error(req, res, 500, "Error processing details order")
         }
     }
     static getOrderProducts = async (req, res) => {
@@ -22,17 +22,17 @@ export class DetailsController {
             const { id } = req.params;
             const detailsOrder = await DetailsModel.getOrderProducts({ id });
             res.json(detailsOrder);
-        } catch (error) {
-            res.status(404).json(error);
+        } catch (err) {
+            error(req, res, 404, "Couldn't get details ")
         }
     }
     static delete = async (req, res) => {
         try {
             const { id } = req.params;
             const productsDetails = await DetailsModel.delete({ id });
-            res.json(productsDetails);
+            success(req, res, 200, "Details deleted successfully")
         } catch (error) {
-            res.status(404).json(error);
+            error(req, res, 404, "Could not delete details ")
         }
     }
     static update = async (req, res) => {
@@ -40,9 +40,9 @@ export class DetailsController {
             const { id } = req.params;
             const input = req.body;
             const productsDetails = await DetailsModel.update({ id, input })
-            res.json(productsDetails);
+            success(req, res, 201, "Successfully updated")
         } catch (error) {
-            res.status(404).json(error);
+            error(req, res, 404, "Error updating details" );
         }
     }
 }

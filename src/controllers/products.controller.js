@@ -1,3 +1,4 @@
+import { error, success } from "../message/message.js";
 import { ProductModel } from "../models/products.js";
 import { validateProduct, validatePartialMovie } from "../schemas/product.js";
 export class ProductController {
@@ -13,8 +14,8 @@ export class ProductController {
                 res.status(404).json(products);
                 // res.render("views.products.ejs", {products});
             }
-        } catch (error) {
-            res.status(500).json({error: "Error getting all products" + error.message});
+        } catch (err) {
+            error/(req, res, 500, "Error getting products")
         }
     }
     static getByName = async(req, res) => {
@@ -23,7 +24,8 @@ export class ProductController {
         if (product) {
             return res.json(product);
         }
-        res.status(404).json({message: 'Product not found'});
+        
+        error(req, res,  404, "Product not found")
     }
     static getById = async(req, res) => {
         const {id} = req.params;
@@ -31,7 +33,7 @@ export class ProductController {
         if (product) {
             return res.json(product);
         }
-        res.status(404).json({message: 'Product not found'});
+        error(req, res, 404, "Product not found")
     }
     static createProduct = async(req, res) => {
         const result = validateProduct(req.body);
@@ -39,19 +41,19 @@ export class ProductController {
             return res.status(400).json({error: result.error.message});
         }
         const newProduct = await ProductModel.createProduct({input: result.data});
-        res.status(201).json(newProduct);
+        success(req, res, 201, "Product created successfully")
     }
     static deleteProduct = async(req, res) => {
         const {id} = req.params;
         try {
             const result = await ProductModel.deleteProduct({ id });
             if (result.affectedRows === 0) {
-                res.status(404).json({ message: 'Product not found' });
+                error(req, res, 404, "Product not deleted successfully");
             } else {
-                res.status(200).json({ message: 'Product deleted successfully' });
+                success(req, res, 201, "Product deleted successfully");
             }
-        } catch (error) {
-            res.status(500).json({ error: 'An error occurred while deleting the product' });
+        } catch (err) {
+            error(req, res, 500, "An error occurred while deleting")
         }
     }
     static updateProduct = async (req, res) => { 
@@ -60,9 +62,9 @@ export class ProductController {
 
         try {
             const updatedProduct = await ProductModel.updateProduct({ id, input });
-            res.status(200).json(updatedProduct);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
+            error(req, res, 200, "Product updated successfully")
+        } catch (err) {
+            error(req, res, 500, err)
         }
     }
 }

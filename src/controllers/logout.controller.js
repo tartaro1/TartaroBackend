@@ -1,11 +1,10 @@
-
-
+import { error, success } from "../message/message.js";
 export class LogOutController {
     static logout = async(req, res) => {
         try {
-            res.json({message: "Ha cerrado sesión"});
-        } catch (error) {
-            res.json(error);
+            success(req, res, 200, "Logged out");
+        } catch (err) {
+            error(req, res, 404, "Invalid logout")
         }
     }
 }
