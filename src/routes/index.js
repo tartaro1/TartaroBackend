@@ -5,7 +5,7 @@ import routesDelivers from "./routes.dealers.js";
 import { Router } from "express";
 import routesDetails from "./routes.details.js";
 import routesBackup from "./routes.backup.js";
-import routesLogOut from "./routes.logOut.js";
+import routesGestion from "./routes.gestion.js";
 
 const indexRouter = Router();
 
@@ -15,5 +15,6 @@ indexRouter.use("/dealers", routesDelivers);
 indexRouter.use("/orders", routesOrders);
 indexRouter.use("/detailsOrders", routesDetails);
 indexRouter.use("/backup", routesBackup);
+indexRouter.use("/gestion", routesGestion)
 
 export default indexRouter;

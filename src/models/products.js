@@ -59,11 +59,12 @@ export class ProductModel {
             descripcion,
             precio,
             calificacion,
-            imagen
+            imagen,
+            stock
         } = input;
         const connection = await pool.getConnection();
         try {
-            const result = await connection.query("CALL SP_AddProducto(?, ?, ?, ?, ?, ?, ?, ?)", [nombre, id_categoria, marca, id_proveedor, descripcion, precio, calificacion, imagen ]);
+            const result = await connection.query("CALL SP_AÑADIR_PRODUCTO(?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, id_categoria, marca, id_proveedor, descripcion, precio, calificacion, imagen, stock ]);
             const [product] = await connection.query("CALL SP_LISTAR_PRODUCTO(?)", result[0].insertId);
             return product;
         } catch (error) {
@@ -93,11 +94,12 @@ export class ProductModel {
             PrecioVenta,
             Calificacion,
             Disponibilidad,
-            imagen
+            imagen,
+            stock
         } = input;
         const connection = await pool.getConnection();
         try {
-            const result = await connection.query("CALL SP_MODIFICAR_PRODUCTO(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id, NombreProducto, ID_Categoria, Marca, ID_Proveedor, Descripcion, PrecioVenta, Calificacion, Disponibilidad, imagen]);
+            const result = await connection.query("CALL SP_MODIFICAR_PRODUCTO(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [id, NombreProducto, ID_Categoria, Marca, ID_Proveedor, Descripcion, PrecioVenta, Calificacion, Disponibilidad, imagen, stock]);
             return result;
         } catch (error) {
             throw new Error(error)

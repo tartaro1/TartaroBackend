@@ -5,5 +5,6 @@ const routesOrders = Router();
 routesOrders.get("/", OrdersController.getAll);
 routesOrders.get("/:id", OrdersController.getById);
 routesOrders.patch("/:id", OrdersController.update);
+routesOrders.patch("/state/:id", OrdersController.updateState)
 routesOrders.delete("/:id", OrdersController.delete);
 export default routesOrders;

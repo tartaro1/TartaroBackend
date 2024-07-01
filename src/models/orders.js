@@ -30,56 +30,26 @@ export class OrderModel {
     }
     static update = async({id, input}) => {
         const {
-            EstadoPedido, 
-            Direccion, 
-            Cliente, 
-            PrecioVenta, 
-            ID_Rol
+            ID_Repartidor 
         } = input;
-
-        const updateFields = [];
-        const params = [];
-
-        if (EstadoPedido !== undefined) {
-            updateFields.push("EstadoPedido = ?");
-            params.push(EstadoPedido);
-        }
-        if (Cliente !== undefined) {
-            updateFields.push("Cliente = ?");
-            params.push(Cliente);
-        }
-        if (PrecioVenta !== undefined) {
-            updateFields.push("PrecioVenta = ?");
-            params.push(PrecioVenta);
-        }
-        if (Direccion !== undefined) {
-            updateFields.push("Direccion = ?");
-            params.push(Direccion);
-        }
-        if (ID_Rol !== undefined) {
-            updateFields.push("ID_Rol = ?");
-            params.push(ID_Rol);
-        }
-        if (updateFields.length === 0) {
-            throw new Error("No se proporcionaron campos para actualizar");
-        }
-
-        const updateFieldsString = updateFields.join(", ");
-
         const connection = await pool.getConnection();
         try {
-            params.push(id);
-            await connection.query(`UPDATE pedidos SET ${updateFieldsString} WHERE ID_Pedido = ?`, params);
-    
-            
-            const [rows] = await connection.query("CALL SP_LISTAR_PEDIDO_ID(?)", [id]);
-    
-            // Verificar si el producto existe
-            if (rows.length === 0) {
-                throw new Error("Pedido no encontrado");
-            }
-    
-            return rows[0];
+            const orderDealer = await connection.query("CALL SP_ACTUALIZAR_PEDIDO_REPARTIDOR(?,?)", [id, ID_Repartidor]);
+            return orderDealer;
+        } catch (error) {
+            throw new Error(error)
+        } finally {
+            connection.release();
+        }
+    }
+    static updateState = async({id, input}) => {
+        const {
+            EstadoPedido 
+        } = input;
+        const connection = await pool.getConnection();
+        try {
+            const orderState = await connection.query("CALL SP_ACTUALIZAR_PEDIDO_ESTADO(?,?)", [id, EstadoPedido]);
+            return orderState;
         } catch (error) {
             throw new Error(error)
         } finally {
@@ -97,7 +67,7 @@ export class OrderModel {
             connection.release();
         }
     }
-    static findByDealer = async({dealer}) => {
+    static findByDealerName = async({dealer}) => {
         const connection = await pool.getConnection();
         try {
             const [dealerOrder] = await connection.query("CALL SP_ORDENREPARTIDOR(?)", [dealer])
@@ -105,6 +75,28 @@ export class OrderModel {
         } catch (error) {
             throw new Error(error)
         } finally {
+            connection.release();
+        }
+    }
+    static findByUser = async({user}) => {
+        const connection = await pool.getConnection();
+        try {
+            const [userOrder] = await connection.query("CALL SP_LISTAR_PEDIDOS_USUARIO(?)", [user]);
+            return userOrder[0];
+        } catch (error) {
+            throw new Error(error)
+        } finally { 
+            connection.release();
+        }
+    }
+    static findByDealer = async({dealerID}) => {
+        const connection = await pool.getConnection();
+        try {
+            const [userOrder] = await connection.query("CALL SP_ORDEN_REPARTIDOR(?)", [dealerID]);
+            return userOrder[0];
+        } catch (error) {
+            throw new Error(error)
+        } finally { 
             connection.release();
         }
     }

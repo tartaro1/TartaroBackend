@@ -5,6 +5,6 @@ const routesDetails = Router();
 
 routesDetails.get("/", DetailsController.getAll);
 routesDetails.get("/:id", DetailsController.getOrderProducts)
-routesDetails.delete("/:id", verifyToken, isAdmin, DetailsController.delete);
-routesDetails.patch("/:id", verifyToken, isAdmin, DetailsController.update);
+routesDetails.delete("/:id", DetailsController.delete);
+routesDetails.patch("/:id", DetailsController.update);
 export default routesDetails;

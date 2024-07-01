@@ -35,7 +35,7 @@ export class UsersController {
         try {
             const newUser = await UserModel.createUser({ input: result.data });
             success(req, res, 201, "User created successfully");
-        } catch (error) {
+        } catch (err) {
             error(req, res, 500, "Couldn't create")
         }
     }
@@ -70,6 +70,9 @@ export class UsersController {
         } catch (err) {
             error(req, res, 400, "email or password incorrect");
         }
+    }
+    static authenticate = async(req, res) => {
+        success(req, res, 200, "authenticated");
     }
     
 }

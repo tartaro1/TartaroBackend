@@ -11,7 +11,7 @@ export class DealersController {
                 // res.render("views.resultDealer.ejs", {dealers})
             } else {
                 const dealers = await DealersModel.getAll();
-                res.status(404).json(dealers);
+                res.status(200).json(dealers);
                 // res.render("views.dealers.ejs", {dealers});
             }
         } catch (err) {

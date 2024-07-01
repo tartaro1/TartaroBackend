@@ -4,15 +4,21 @@ import { OrderModel } from "../models/orders.js";
 export class OrdersController {
     static getAll = async(req, res) => {
         const {dealer} = req.query;
+        const {dealerID} = req.query
+        const {user} = req.query;
         try {
             if (dealer) {
-                const orders = await OrderModel.findByDealer({dealer});
+                const orders = await OrderModel.findByDealerName({dealer});
                 res.status(200).json(orders);
-                // res.render("views.resulsOrdersByDealer.ejs", {orders});                
+            } else if (user) {
+                const orders = await OrderModel.findByUser({user});
+                res.status(200).json(orders);
+            } else if (dealerID) {
+                const orders = await OrderModel.findByDealer({dealerID});
+                res.status(200).json(orders);
             } else {
                 const orders = await OrderModel.getAll();
-                res.status(404).json(orders);
-                // res.render("views.orders.ejs", {orders})
+                res.status(200).json(orders);
             }
         } catch (error) {
             res.status(500).json({error: error});
@@ -34,7 +40,17 @@ export class OrdersController {
             const updatedOrder = await OrderModel.update({id, input});
             res.status(200).json(updatedOrder); 
         } catch (err) {
-            error(req, res, 500, "An error occurred while updating")
+            res.json(err);
+        }
+    }
+    static updateState = async(req, res) => {
+        const {id} = req.params;
+        const input = req.body;
+        try {
+            const updatedOrder = await OrderModel.updateState({id, input});
+            res.status(200).json(updatedOrder); 
+        } catch (err) {
+            res.json(err);
         }
     }
     static delete = async(req, res) => {

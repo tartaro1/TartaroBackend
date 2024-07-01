@@ -6,8 +6,8 @@ const routesDelivers = Router();
 
 routesDelivers.get("/", DealersController.getAll);
 routesDelivers.get("/:id", DealersController.getById);
-routesDelivers.post("/", verifyToken, isAdmin, DealersController.create);
-routesDelivers.delete("/:id", verifyToken, isAdmin, DealersController.delete);
-routesDelivers.patch("/:id", verifyToken, isAdmin, DealersController.update);
+routesDelivers.post("/", DealersController.create);
+routesDelivers.delete("/:id", DealersController.delete);
+routesDelivers.patch("/:id", DealersController.update);
 
 export default routesDelivers;
