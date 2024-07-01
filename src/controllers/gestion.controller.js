@@ -35,7 +35,7 @@ export class GestionController {
               };
   
               const gestion = await GestionModel.create({ input });
-              success(req, res, 201, "Created");
+              success(req, res, 201, "Created", { pdf_path: input.pdf_path });
           } catch (err) {
               console.error(err);
               error(req, res, 500, "Error creating backup");
