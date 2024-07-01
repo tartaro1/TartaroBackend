@@ -13,6 +13,7 @@ const server = express();
 server.use(urlencoded({ extended: true }));
 server.use(express.static(path.join(__dirname, "../../frontend/app/public")));
 server.use(express.json());
+server.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 server.set("view engine", "ejs");
 server.set("views", path.join(__dirname, '../../frontend/app/views'));
 server.use(cors());

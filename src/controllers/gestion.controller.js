@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../../../frontend/app/public/uploads/' ));
+        cb(null, path.join(__dirname, '../uploads' ));
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -25,21 +25,21 @@ export class GestionController {
         }
     }
     static create = [
-        upload.single('pdf'),
-        async (req, res) => {
+      upload.single('pdf'),
+      async (req, res) => {
           try {
-            const input = {
-              titulo: req.body.titulo,
-              contenido: req.body.contenido,
-              pdf_path: req.file ? req.file.path : null
-            };
-    
-            const gestion = await GestionModel.create({ input });
-            success(req, res, 201, "Created");
+              const input = {
+                  titulo: req.body.titulo,
+                  contenido: req.body.contenido,
+                  pdf_path: req.file ? `/uploads/${req.file.filename}` : null
+              };
+  
+              const gestion = await GestionModel.create({ input });
+              success(req, res, 201, "Created");
           } catch (err) {
-            console.error(err);
-            error(req, res, 500, "Error creating backup");
+              console.error(err);
+              error(req, res, 500, "Error creating backup");
           }
-        }
-      ];
+      }
+  ];
 }
