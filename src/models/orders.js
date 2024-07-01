@@ -28,6 +28,24 @@ export class OrderModel {
             connection.release();
         }
     }
+    static create = async({input}) => {
+        const {
+            EstadoPedido,
+            Direccion,
+            cliente,
+            PrecioVenta,
+            ID_Repartidor
+        } = input;
+        const connection = await pool.getConnection();
+        try {
+            const order = await connection.query("CALL SP_INSERTAR_PEDIDO(?,?,?,?,?)", [EstadoPedido, Direccion, cliente, PrecioVenta, ID_Repartidor])
+            return order;
+        } catch (error) {
+            throw new Error(error);
+        } finally {
+            connection.release();
+        }
+    }
     static update = async({id, input}) => {
         const {
             ID_Repartidor 

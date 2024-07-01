@@ -49,6 +49,24 @@ export class DetailsModel {
             connection.release();
         }
     }
+    static create = async({input}) => {
+        const {
+            ID_Pedido,
+            ID_Producto,
+            cantidad,
+            PrecioVenta,
+            Descuento
+        } = input;
+        const connection = await pool.getConnection();
+        try {
+            const detailProduct = await connection.query("CALL SP_INSERTAR_DETALLE_PEDIDO(?,?,?,?,?)", [ID_Pedido, ID_Producto, cantidad, PrecioVenta, Descuento])
+            return detailProduct;
+        } catch (error) {
+            throw new Error(error)
+        } finally {
+            connection.release();
+        }
+    }
     static update = async({id, input}) => {
         const {
             Cantidad 

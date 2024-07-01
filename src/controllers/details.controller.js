@@ -26,6 +26,15 @@ export class DetailsController {
             error(req, res, 404, "Couldn't get details ")
         }
     }
+    static create = async(req, res) => {
+        try {
+            const input = req.body;
+            const productsOrder = await DetailsModel.create({input});
+            success(req, res, 201, "Product inserted successfully")
+        } catch (err) {
+            error(req, res, "Error inserting product")
+        }
+    }
     static delete = async (req, res) => {
         try {
             const { id } = req.params;

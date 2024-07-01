@@ -33,6 +33,15 @@ export class OrdersController {
             error(req, res, 404, "Order not found")
         }
     }
+    static create = async (req, res) => {
+        try {
+            const input = req.body;
+            const order = await OrderModel.create({input})
+            success(req, res, 201, "Order created successfully")
+        } catch (err) {
+            error(req, res, 500, "Error creating order")
+        }
+    }
     static update = async(req, res) => {
         const {id} = req.params;
         const input = req.body;
@@ -40,7 +49,7 @@ export class OrdersController {
             const updatedOrder = await OrderModel.update({id, input});
             res.status(200).json(updatedOrder); 
         } catch (err) {
-            res.json(err);
+            error(req, res, 500, "Error updating Order")
         }
     }
     static updateState = async(req, res) => {
@@ -50,7 +59,7 @@ export class OrdersController {
             const updatedOrder = await OrderModel.updateState({id, input});
             res.status(200).json(updatedOrder); 
         } catch (err) {
-            res.json(err);
+            error(req, res, 500, "Error updating order state")
         }
     }
     static delete = async(req, res) => {

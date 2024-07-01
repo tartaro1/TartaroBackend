@@ -166,3 +166,27 @@ Content-Type: application/json
     "Correo": "e@gmail.com",
     "Contrasena": "1"
 }
+
+###
+POST http://localhost:9200/orders
+content-type: application/json
+
+{
+    "EstadoPedido": "Pendiente",
+    "Direccion": "Asturias",
+    "cliente": 1,
+    "PrecioVenta": "30.00",
+    "ID_Repartidor": 22
+}
+
+###
+POST http://localhost:9200/detailsOrders
+Content-Type: application/json
+
+{
+    "ID_Pedido": 1,
+    "ID_Producto": 1,
+    "cantidad": 30,
+    "PrecioVenta": 3,
+    "Descuento": 1
+}
