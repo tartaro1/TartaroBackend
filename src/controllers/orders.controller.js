@@ -47,7 +47,7 @@ export class OrdersController {
         const input = req.body;
         try {
             const updatedOrder = await OrderModel.update({id, input});
-            res.status(200).json(updatedOrder); 
+            success(req, res, 201, "order updated successfully") 
         } catch (err) {
             error(req, res, 500, "Error updating Order")
         }
