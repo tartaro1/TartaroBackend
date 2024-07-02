@@ -6,9 +6,6 @@ const pool =  mysql.createPool({
     port:process.env.MYSQLPORT,
     user:process.env.MYSQLUSER || 'ur2g5uxifdmetppw',
     password:process.env.MYSQLPASSWORD || 'UAlddoPRkfLlc6IxUIXA',
-    database:process.env.MYSQLDATABASE ||'b0u1bfs2gghv9cwqhexp',
-    waitForConnections: true,
-    connectionLimit: 5,
-    queueLimit: 0
+    database:'b0u1bfs2gghv9cwq'
 })
 export default pool;
