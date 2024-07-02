@@ -87,5 +87,13 @@ export class OrdersController {
         } catch (err) {
             error(req, res, "An error occurred while processing")
         }
+    }
+    static sumSales = async(req, res) => {
+        try {
+            const sum = await OrderModel.sumSales();
+            res.json(sum);
+        } catch (err) {
+            error(req, res, "An error occurred while sum collecting")
+        }
     } 
 }

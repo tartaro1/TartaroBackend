@@ -6,7 +6,8 @@ import { Router } from "express";
 import routesDetails from "./routes.details.js";
 import routesBackup from "./routes.backup.js";
 import routesGestion from "./routes.gestion.js";
-
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "../tools/swagger-output.json" assert {type: "json"}
 const indexRouter = Router();
 
 indexRouter.use("/products", routesProducts);
@@ -16,5 +17,5 @@ indexRouter.use("/orders", routesOrders);
 indexRouter.use("/detailsOrders", routesDetails);
 indexRouter.use("/backup", routesBackup);
 indexRouter.use("/gestion", routesGestion)
-
+indexRouter.use("/doc", swaggerUi.serve,  swaggerUi.setup(swaggerFile))
 export default indexRouter;

@@ -118,7 +118,7 @@ export class OrderModel {
             connection.release();
         }
     }
-    static countSales = async(req, res) => {
+    static countSales = async() => {
         const connection = await pool.getConnection();
         try {
             const [detailProducts] = await connection.query("CALL SP_CONTAR_VENTAS()")
@@ -129,4 +129,17 @@ export class OrderModel {
             connection.release();
         }
     }
+    static sumSales = async () => {
+        const connection = await pool.getConnection();
+        try {
+            const [rows1] = await connection.query('CALL `SP_GANANCIAS`(@total)');
+            const [rows2] = await connection.query('SELECT @total AS total');
+            return rows2;
+        } catch (error) {
+            throw new Error(error.message);
+        } finally {
+            connection.release();
+        }
+    }
+    
 }

@@ -2,6 +2,7 @@ import { Router } from "express";
 import { OrdersController } from "../controllers/orders.controller.js";
 
 const routesOrders = Router();
+routesOrders.get("/suma", OrdersController.sumSales)
 routesOrders.get("/sales", OrdersController.countSales);
 routesOrders.get("/", OrdersController.getAll);
 routesOrders.get("/:id", OrdersController.getById);
