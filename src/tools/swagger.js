@@ -5,7 +5,8 @@ const doc = {
     title: 'My API',
     description: 'Description'
   },
-  host: 'localhost:9200'
+  host: 'ms-backend-tartaro.onrender.com',
+  schemes: ['https'], // Asegúrate de que los esquemas sean correctos
 };
 
 const outputFile = './swagger-output.json';

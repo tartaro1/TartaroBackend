@@ -11,7 +11,7 @@ export class UsersController {
                 // res.render("views.resultUser.ejs", {user})
             } else {
                 const users = await UserModel.getAll();
-                res.status(404).json(users);
+                res.status(200).json(users);
                 // res.render("views.users.ejs", {users});
             }
         } catch (error) {

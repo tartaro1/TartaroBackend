@@ -10,7 +10,7 @@ export class DetailsController {
                 // res.render("views.filtred.ejs", { detailsOrdersFiltred });
             } else {
                 const detailsOrders = await DetailsModel.getAll();
-                res.status(404).json(detailsOrders);
+                res.status(200).json(detailsOrders);
                 // res.render("views.detailsOrder.ejs", { detailsOrders });
             }
         } catch (err) {

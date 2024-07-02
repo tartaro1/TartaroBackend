@@ -11,7 +11,7 @@ export class ProductController {
                 // res.render("views.resultsProduct.ejs", {products})
             } else {
                 const products = await ProductModel.getAll();
-                res.status(404).json(products);
+                res.status(200).json(products);
                 // res.render("views.products.ejs", {products});
             }
         } catch (err) {
