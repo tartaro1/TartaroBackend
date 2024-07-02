@@ -180,12 +180,12 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:9200/detailsOrders
+POST https://ms-backend-tartaro.onrender.com/orders
 Content-Type: application/json
 
 {
     "ID_Pedido": 1,
-    "ID_Producto": 1,
+    "ID_Producto": 2,
     "cantidad": 30,
     "PrecioVenta": 3,
     "Descuento": 1

@@ -14,8 +14,8 @@ export class UsersController {
                 res.status(404).json(users);
                 // res.render("views.users.ejs", {users});
             }
-        } catch (error) {
-            error(req, res, 500, "Error getting users")
+        } catch (err) {
+            console.error(err);
         }
     }
     static getById = async(req, res) => {
