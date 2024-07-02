@@ -79,5 +79,13 @@ export class OrdersController {
         } catch (err) {
             error(req, res, 404, "Couldn't find order by dealer")
         }
+    }
+    static countSales = async(req, res) => {
+        try {
+            const sales = await OrderModel.countSales();
+            res.json(sales);
+        } catch (err) {
+            error(req, res, "An error occurred while processing")
+        }
     } 
 }

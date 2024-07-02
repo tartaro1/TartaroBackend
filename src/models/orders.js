@@ -118,4 +118,15 @@ export class OrderModel {
             connection.release();
         }
     }
+    static countSales = async(req, res) => {
+        const connection = await pool.getConnection();
+        try {
+            const [detailProducts] = await connection.query("CALL SP_CONTAR_VENTAS()")
+            return detailProducts[0]
+        } catch (error) {
+            throw new Error(error)
+        } finally {
+            connection.release();
+        }
+    }
 }

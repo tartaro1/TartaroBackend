@@ -3,7 +3,6 @@ import mysql from "mysql2/promise"
 import { config } from "dotenv";
 config();
 
-
 export class DetailsModel {
     static getAll = async() => {
         const connection = await pool.getConnection();
