@@ -1,6 +1,10 @@
 import { config } from "dotenv"
 import mysql from "mysql2/promise"
 config();
+/**
+ * conexion base de datos
+ * @type {Object}
+ */
 const pool =  mysql.createPool({
     host:"db4free.net",
     port:process.env.MYSQLPORT,

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/dealers.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/dealers.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { error, success } from "../message/message.js";
+import { DealersModel } from "../models/dealers.js";
+import { validateDealer, validatePartialUser } from "../schemas/dealer.js";
+
+/**
+ * Controlador para las operaciones relacionadas con los distribuidores
+ * @class DealersController
+ */
+export class DealersController {
+    /**
+     * Obtiene todos los distribuidores, opcionalmente filtrados por email
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.query - Los parámetros de la consulta
+     * @param {string} req.query.email - El email del distribuidor para filtrar
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DealersController
+     */
+    static async getAll(req, res) {
+        try {
+            const { email } = req.query;
+            if (email) {
+                const dealers = await DealersModel.getByEmail({ email });
+                res.status(200).json(dealers);
+                // res.render("views.resultDealer.ejs", { dealers });
+            } else {
+                const dealers = await DealersModel.getAll();
+                res.status(200).json(dealers);
+                // res.render("views.dealers.ejs", { dealers });
+            }
+        } catch (err) {
+            error(req, res, 500, "Error processing dealers");
+        }
+    }
+
+    /**
+     * Obtiene un distribuidor por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del distribuidor
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DealersController
+     */
+    static async getById(req, res) {
+        try {
+            const { id } = req.params;
+            const dealer = await DealersModel.getById({ id });
+            res.json(dealer);
+        } catch (err) {
+            error(req, res, 404, "Dealer not found");
+        }
+    }
+
+    /**
+     * Crea un nuevo distribuidor
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.body - El cuerpo de la petición con los datos del distribuidor
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DealersController
+     */
+    static async create(req, res) {
+        const input = validateDealer(req.body);
+        if (input.error) {
+            return res.status(400).json({ error: input.error.message });
+        }
+        try {
+            const newDealer = await DealersModel.create({ input: input.data });
+            success(req, res, 201, "Dealer created successfully");
+        } catch (err) {
+            error(req, res, 400, "Error while creating dealer");
+        }
+    }
+
+    /**
+     * Elimina un distribuidor por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del distribuidor
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DealersController
+     */
+    static async delete(req, res) {
+        const { id } = req.params;
+        const deletedDealer = await DealersModel.delete({ id });
+        try {
+            if (deletedDealer.affectedRows === 0) {
+                error(req, res, 404, "Dealer not found");
+            } else {
+                success(req, res, 200, "Dealer deleted successfully");
+            }
+        } catch (err) {
+            error(req, res, 500, "Error deleting dealer");
+        }
+    }
+
+    /**
+     * Actualiza un distribuidor por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del distribuidor
+     * @param {object} req.body - El cuerpo de la petición con los datos actualizados del distribuidor
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DealersController
+     */
+    static async update(req, res) {
+        const { id } = req.params;
+        const input = req.body;
+        try {
+            const updatedDealer = await DealersModel.update({ id, input });
+            success(req, res, 201, "Dealer updated successfully");
+        } catch (err) {
+            error(req, res, 500, "Error updating dealer");
+        }
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackupsController.html">BackupsController</a></li><li><a href="BackupsModel.html">BackupsModel</a></li><li><a href="DealersController.html">DealersController</a></li><li><a href="DealersModel.html">DealersModel</a></li><li><a href="DetailsController.html">DetailsController</a></li><li><a href="DetailsModel.html">DetailsModel</a></li><li><a href="GestionController.html">GestionController</a></li><li><a href="GestionModel.html">GestionModel</a></li><li><a href="OrderModel.html">OrderModel</a></li><li><a href="OrdersController.html">OrdersController</a></li><li><a href="ProductController.html">ProductController</a></li><li><a href="ProductModel.html">ProductModel</a></li><li><a href="UserModel.html">UserModel</a></li><li><a href="UsersController.html">UsersController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#indexRouter">indexRouter</a></li><li><a href="global.html#pool">pool</a></li><li><a href="global.html#routesBackup">routesBackup</a></li><li><a href="global.html#routesDelivers">routesDelivers</a></li><li><a href="global.html#routesDetails">routesDetails</a></li><li><a href="global.html#routesGestion">routesGestion</a></li><li><a href="global.html#routesOrders">routesOrders</a></li><li><a href="global.html#routesProducts">routesProducts</a></li><li><a href="global.html#routesUsers">routesUsers</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jul 02 2024 19:50:01 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

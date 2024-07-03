@@ -1,54 +1,96 @@
 import pool from "../config/db.config.js";
-import mysql from "mysql2/promise"
-import { config } from "dotenv";
-config();
 
+/**
+ * Modelo para operaciones relacionadas con los detalles de pedidos en la base de datos.
+ * @class DetailsModel
+ */
 export class DetailsModel {
-    static getAll = async() => {
+    /**
+     * Obtiene todos los detalles de pedidos.
+     * @returns {Promise<object[]>} Todos los detalles de pedidos.
+     * @throws {Error} Si hay un error durante la consulta.
+     */
+    static async getAll() {
         const connection = await pool.getConnection();
         try {
             const [result] = await connection.query("CALL SP_DATOSPEDIDOS();");
             return result[0];
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         } finally {
             connection.release();
         }
     }
-    static getByProvider = async({provider}) => {
+
+    /**
+     * Obtiene los detalles de pedidos filtrados por proveedor.
+     * @param {object} params - Parámetros para filtrar por proveedor.
+     * @param {string} params.provider - Nombre o identificador del proveedor.
+     * @returns {Promise<object[]>} Detalles de pedidos filtrados por proveedor.
+     * @throws {Error} Si hay un error durante la consulta.
+     */
+    static async getByProvider({ provider }) {
         const connection = await pool.getConnection();
         try {
             const [result] = await connection.query("CALL SP_FILTRARPROVEEDOR(?);", [provider]);
             return result[0];
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         } finally {
             connection.release();
         }
     }
-    static getOrderProducts = async ({id}) => {
+
+    /**
+     * Obtiene los productos de un pedido específico.
+     * @param {object} params - Parámetros para obtener los productos de un pedido.
+     * @param {number} params.id - Identificador del pedido.
+     * @returns {Promise<object[]>} Productos del pedido especificado.
+     * @throws {Error} Si hay un error durante la consulta.
+     */
+    static async getOrderProducts({ id }) {
         const connection = await pool.getConnection();
         try {
             const [result] = await connection.query("CALL SP_ORDENPRODUCTOS(?)", [id]);
             return result[0];
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         } finally {
             connection.release();
         }
     }
-    static delete = async({id}) => {
+
+    /**
+     * Elimina un detalle de pedido específico.
+     * @param {object} params - Parámetros para eliminar un detalle de pedido.
+     * @param {number} params.id - Identificador del detalle de pedido a eliminar.
+     * @returns {Promise<object>} Resultado de la operación de eliminación.
+     * @throws {Error} Si hay un error durante la operación.
+     */
+    static async delete({ id }) {
         const connection = await pool.getConnection();
         try {
             const [result] = await connection.query("CALL SP_ELIMINARPRODUCTOORDEN(?)", [id]);
             return result[0];
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         } finally {
             connection.release();
         }
     }
-    static create = async({input}) => {
+
+    /**
+     * Crea un nuevo detalle de pedido.
+     * @param {object} params - Parámetros para crear un nuevo detalle de pedido.
+     * @param {number} params.input.ID_Pedido - Identificador del pedido asociado.
+     * @param {number} params.input.ID_Producto - Identificador del producto asociado.
+     * @param {number} params.input.cantidad - Cantidad del producto en el pedido.
+     * @param {number} params.input.PrecioVenta - Precio de venta unitario del producto.
+     * @param {number} params.input.Descuento - Descuento aplicado al producto.
+     * @returns {Promise<object>} Detalle de pedido creado.
+     * @throws {Error} Si hay un error durante la creación del detalle de pedido.
+     */
+    static async create({ input }) {
         const {
             ID_Pedido,
             ID_Producto,
@@ -58,24 +100,34 @@ export class DetailsModel {
         } = input;
         const connection = await pool.getConnection();
         try {
-            const detailProduct = await connection.query("CALL SP_INSERTAR_DETALLE_PEDIDO(?,?,?,?,?)", [ID_Pedido, ID_Producto, cantidad, PrecioVenta, Descuento])
+            const detailProduct = await connection.query("CALL SP_INSERTAR_DETALLE_PEDIDO(?,?,?,?,?)", [ID_Pedido, ID_Producto, cantidad, PrecioVenta, Descuento]);
             return detailProduct;
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         } finally {
             connection.release();
         }
     }
-    static update = async({id, input}) => {
+
+    /**
+     * Actualiza un detalle de pedido existente.
+     * @param {object} params - Parámetros para actualizar un detalle de pedido.
+     * @param {number} params.id - Identificador del detalle de pedido a actualizar.
+     * @param {object} params.input - Datos actualizados del detalle de pedido.
+     * @param {number} params.input.Cantidad - Nueva cantidad del producto en el pedido.
+     * @returns {Promise<object>} Resultado de la operación de actualización.
+     * @throws {Error} Si hay un error durante la actualización del detalle de pedido.
+     */
+    static async update({ id, input }) {
         const {
-            Cantidad 
+            Cantidad
         } = input;
         const connection = await pool.getConnection();
         try {
             const detailsProducts = await connection.query("CALL SP_MODIFICAR_DETALLEPEDIDO(?,?)", [id, Cantidad]);
             return detailsProducts;
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         } finally {
             connection.release();
         }

@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { DealersController } from "../controllers/dealers.controller.js";
 import { isAdmin, verifyToken } from "../middleware/token.js";
-
+/**
+ * Estas son las rutas de delivers
+ * @type {Object}
+ */
 const routesDelivers = Router();
 
 routesDelivers.get("/", DealersController.getAll);

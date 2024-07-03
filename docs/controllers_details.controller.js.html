@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/details.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/details.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { error, success } from "../message/message.js";
+import { DetailsModel } from "../models/detailsOrder.js";
+
+/**
+ * Controlador para las operaciones relacionadas con los detalles de los pedidos
+ * @class DetailsController
+ */
+export class DetailsController {
+    /**
+     * Obtiene todos los detalles de los pedidos, filtrados opcionalmente por proveedor
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.query - Los parámetros de la consulta
+     * @param {string} req.query.provider - El nombre del proveedor para filtrar los detalles de los pedidos
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async getAll(req, res) {
+        try {
+            const { provider } = req.query;
+            if (provider) {
+                const detailsOrdersFiltered = await DetailsModel.getByProvider({ provider });
+                res.status(200).json(detailsOrdersFiltered);
+                // res.render("views.filtered.ejs", { detailsOrdersFiltered });
+            } else {
+                const detailsOrders = await DetailsModel.getAll();
+                res.status(200).json(detailsOrders);
+                // res.render("views.detailsOrder.ejs", { detailsOrders });
+            }
+        } catch (err) {
+            error(req, res, 500, "Error processing details order");
+        }
+    }
+
+    /**
+     * Obtiene los productos de un pedido por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del pedido
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async getOrderProducts(req, res) {
+        try {
+            const { id } = req.params;
+            const detailsOrder = await DetailsModel.getOrderProducts({ id });
+            res.json(detailsOrder);
+        } catch (err) {
+            error(req, res, 404, "Couldn't get details");
+        }
+    }
+
+    /**
+     * Crea un nuevo detalle de pedido
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.body - El cuerpo de la petición con los datos del detalle del pedido
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async create(req, res) {
+        try {
+            const input = req.body;
+            const productsOrder = await DetailsModel.create({ input });
+            success(req, res, 201, "Product inserted successfully");
+        } catch (err) {
+            error(req, res, 500, "Error inserting product");
+        }
+    }
+
+    /**
+     * Elimina un detalle de pedido por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del detalle del pedido
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async delete(req, res) {
+        try {
+            const { id } = req.params;
+            const productsDetails = await DetailsModel.delete({ id });
+            success(req, res, 200, "Details deleted successfully");
+        } catch (err) {
+            error(req, res, 404, "Could not delete details");
+        }
+    }
+
+    /**
+     * Actualiza un detalle de pedido por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del detalle del pedido
+     * @param {object} req.body - El cuerpo de la petición con los datos actualizados del detalle del pedido
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async update(req, res) {
+        try {
+            const { id } = req.params;
+            const input = req.body;
+            const productsDetails = await DetailsModel.update({ id, input });
+            success(req, res, 201, "Successfully updated");
+        } catch (err) {
+            error(req, res, 404, "Error updating details");
+        }
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackupsController.html">BackupsController</a></li><li><a href="BackupsModel.html">BackupsModel</a></li><li><a href="DealersController.html">DealersController</a></li><li><a href="DealersModel.html">DealersModel</a></li><li><a href="DetailsController.html">DetailsController</a></li><li><a href="DetailsModel.html">DetailsModel</a></li><li><a href="GestionController.html">GestionController</a></li><li><a href="GestionModel.html">GestionModel</a></li><li><a href="OrderModel.html">OrderModel</a></li><li><a href="OrdersController.html">OrdersController</a></li><li><a href="ProductController.html">ProductController</a></li><li><a href="ProductModel.html">ProductModel</a></li><li><a href="UserModel.html">UserModel</a></li><li><a href="UsersController.html">UsersController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#indexRouter">indexRouter</a></li><li><a href="global.html#pool">pool</a></li><li><a href="global.html#routesBackup">routesBackup</a></li><li><a href="global.html#routesDelivers">routesDelivers</a></li><li><a href="global.html#routesDetails">routesDetails</a></li><li><a href="global.html#routesGestion">routesGestion</a></li><li><a href="global.html#routesOrders">routesOrders</a></li><li><a href="global.html#routesProducts">routesProducts</a></li><li><a href="global.html#routesUsers">routesUsers</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jul 02 2024 19:50:01 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { OrdersController } from "../controllers/orders.controller.js";
-
+/**
+ * Estas son las rutas de Orders
+ * @type {Object}
+ */
 const routesOrders = Router();
 routesOrders.get("/suma", OrdersController.sumSales)
 routesOrders.get("/sales", OrdersController.countSales);

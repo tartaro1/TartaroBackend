@@ -8,6 +8,10 @@ import routesBackup from "./routes.backup.js";
 import routesGestion from "./routes.gestion.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../tools/swagger-output.json" assert {type: "json"}
+/**
+ * Estas son las rutas de mi proyecto
+ * @type {Object}
+ */
 const indexRouter = Router();
 
 indexRouter.use("/products", routesProducts);

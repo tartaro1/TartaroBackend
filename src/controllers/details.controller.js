@@ -1,57 +1,106 @@
 import { error, success } from "../message/message.js";
 import { DetailsModel } from "../models/detailsOrder.js";
+
+/**
+ * Controlador para las operaciones relacionadas con los detalles de los pedidos
+ * @class DetailsController
+ */
 export class DetailsController {
-    static getAll = async (req, res) => {
+    /**
+     * Obtiene todos los detalles de los pedidos, filtrados opcionalmente por proveedor
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.query - Los parámetros de la consulta
+     * @param {string} req.query.provider - El nombre del proveedor para filtrar los detalles de los pedidos
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async getAll(req, res) {
         try {
             const { provider } = req.query;
             if (provider) {
-                const detailsOrdersFiltred = await DetailsModel.getByProvider({ provider })
-                res.status(200).json(detailsOrdersFiltred);
-                // res.render("views.filtred.ejs", { detailsOrdersFiltred });
+                const detailsOrdersFiltered = await DetailsModel.getByProvider({ provider });
+                res.status(200).json(detailsOrdersFiltered);
+                // res.render("views.filtered.ejs", { detailsOrdersFiltered });
             } else {
                 const detailsOrders = await DetailsModel.getAll();
                 res.status(200).json(detailsOrders);
                 // res.render("views.detailsOrder.ejs", { detailsOrders });
             }
         } catch (err) {
-            error(req, res, 500, "Error processing details order")
+            error(req, res, 500, "Error processing details order");
         }
     }
-    static getOrderProducts = async (req, res) => {
+
+    /**
+     * Obtiene los productos de un pedido por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del pedido
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async getOrderProducts(req, res) {
         try {
             const { id } = req.params;
             const detailsOrder = await DetailsModel.getOrderProducts({ id });
             res.json(detailsOrder);
         } catch (err) {
-            error(req, res, 404, "Couldn't get details ")
+            error(req, res, 404, "Couldn't get details");
         }
     }
-    static create = async(req, res) => {
+
+    /**
+     * Crea un nuevo detalle de pedido
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.body - El cuerpo de la petición con los datos del detalle del pedido
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async create(req, res) {
         try {
             const input = req.body;
-            const productsOrder = await DetailsModel.create({input});
-            success(req, res, 201, "Product inserted successfully")
+            const productsOrder = await DetailsModel.create({ input });
+            success(req, res, 201, "Product inserted successfully");
         } catch (err) {
-            error(req, res, "Error inserting product")
+            error(req, res, 500, "Error inserting product");
         }
     }
-    static delete = async (req, res) => {
+
+    /**
+     * Elimina un detalle de pedido por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del detalle del pedido
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async delete(req, res) {
         try {
             const { id } = req.params;
             const productsDetails = await DetailsModel.delete({ id });
-            success(req, res, 200, "Details deleted successfully")
-        } catch (error) {
-            error(req, res, 404, "Could not delete details ")
+            success(req, res, 200, "Details deleted successfully");
+        } catch (err) {
+            error(req, res, 404, "Could not delete details");
         }
     }
-    static update = async (req, res) => {
+
+    /**
+     * Actualiza un detalle de pedido por su ID
+     * @param {object} req - Captura peticiones HTML
+     * @param {object} req.params - Los parámetros de la ruta
+     * @param {string} req.params.id - El ID del detalle del pedido
+     * @param {object} req.body - El cuerpo de la petición con los datos actualizados del detalle del pedido
+     * @param {object} res - Devuelve peticiones HTML
+     * @memberof DetailsController
+     */
+    static async update(req, res) {
         try {
             const { id } = req.params;
             const input = req.body;
-            const productsDetails = await DetailsModel.update({ id, input })
-            success(req, res, 201, "Successfully updated")
-        } catch (error) {
-            error(req, res, 404, "Error updating details" );
+            const productsDetails = await DetailsModel.update({ id, input });
+            success(req, res, 201, "Successfully updated");
+        } catch (err) {
+            error(req, res, 404, "Error updating details");
         }
     }
 }

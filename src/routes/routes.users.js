@@ -1,6 +1,10 @@
 import { Router } from "express";
-import { UsersController } from "../controllers/users.controller.js";
+import UsersController  from "../controllers/users.controller.js";
 import { isAdmin, verifyToken } from "../middleware/token.js";
+/**
+ * Estas son las rutas de los users
+ * @type {Object}
+ */
 const routesUsers = Router();
 
 routesUsers.get("/", UsersController.getAll);

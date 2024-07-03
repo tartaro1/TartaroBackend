@@ -1,6 +1,9 @@
 import { Router } from "express";
 import {ProductController} from "../controllers/products.controller.js"
-
+/**
+ * Estas son las rutas de products
+ * @type {Object}
+ */
 const routesProducts = Router();
 
 routesProducts.get("/:id", ProductController.getById);
