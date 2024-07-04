@@ -90,7 +90,10 @@ export class DetailsModel {
      * @returns {Promise<object>} Detalle de pedido creado.
      * @throws {Error} Si hay un error durante la creación del detalle de pedido.
      */
+    
+    
     static async create({ input }) {
+        const MAX_RETRIES = 3; // Máximo de intentos de reintento
         const {
             ID_Pedido,
             ID_Producto,
@@ -99,15 +102,30 @@ export class DetailsModel {
             Descuento
         } = input;
         const connection = await pool.getConnection();
-        try {
-            const detailProduct = await connection.query("CALL SP_INSERTAR_DETALLE_PEDIDO(?,?,?,?,?)", [ID_Pedido, ID_Producto, cantidad, PrecioVenta, Descuento]);
-            return detailProduct;
-        } catch (error) {
-            throw new Error(error);
-        } finally {
-            connection.release();
+    
+        let attempt = 0;
+        while (attempt < MAX_RETRIES) {
+            try {
+                await connection.beginTransaction();
+                await connection.query("CALL SP_INSERTAR_DETALLE_PEDIDO(?,?,?,?,?)", [ID_Pedido, ID_Producto, cantidad, PrecioVenta, Descuento]);
+                await connection.commit();
+                return; // Salir de la función si la operación tiene éxito
+            } catch (error) {
+                await connection.rollback();
+                if (error.message.includes('Deadlock found when trying to get lock')) {
+                    attempt++;
+                    if (attempt >= MAX_RETRIES) {
+                        throw new Error('Deadlock found after maximum retries');
+                    }
+                } else {
+                    throw new Error(error);
+                }
+            } finally {
+                connection.release();
+            }
         }
     }
+    
 
     /**
      * Actualiza un detalle de pedido existente.

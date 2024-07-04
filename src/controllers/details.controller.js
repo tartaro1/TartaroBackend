@@ -59,10 +59,10 @@ export class DetailsController {
     static async create(req, res) {
         try {
             const input = req.body;
-            const productsOrder = await DetailsModel.create({ input });
+            await DetailsModel.create({ input });
             success(req, res, 201, "Product inserted successfully");
         } catch (err) {
-            error(req, res, 500, "Error inserting product");
+            console.error(err);
         }
     }
 

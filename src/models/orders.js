@@ -66,14 +66,21 @@ export class OrderModel {
         } = input;
         const connection = await pool.getConnection();
         try {
-            const order = await connection.query("CALL SP_INSERTAR_PEDIDO(?,?,?,?,?)", [EstadoPedido, Direccion, cliente, PrecioVenta, ID_Repartidor]);
-            return order;
+            // Ejecuta el procedimiento almacenado para insertar el pedido
+            await connection.query(
+                "CALL SP_INSERTAR_PEDIDO(?,?,?,?,?, @p_PedidoID);",
+                [EstadoPedido, Direccion, cliente, PrecioVenta, ID_Repartidor]
+            );
+            // Consulta para obtener el valor de @p_PedidoID
+            const [[{ PedidoID }]] = await connection.query("SELECT @p_PedidoID as PedidoID;");
+            return PedidoID;
         } catch (error) {
             throw new Error(error);
         } finally {
             connection.release();
         }
     }
+    
 
     /**
      * Actualiza el repartidor asignado a un pedido por su ID.

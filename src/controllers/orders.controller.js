@@ -65,10 +65,10 @@ export class OrdersController {
     static async create(req, res) {
         try {
             const input = req.body;
-            const order = await OrderModel.create({ input });
-            success(req, res, 201, "Order created successfully");
+            const PedidoID = await OrderModel.create({ input });
+            success(req, res, 201, "Order created successfully", { PedidoID });
         } catch (err) {
-            error(req, res, 500, "Error creating order");
+            console.error(err);
         }
     }
 
