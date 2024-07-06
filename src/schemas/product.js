@@ -12,7 +12,6 @@ const productSchema = z.object({
   precio: z.number(),
   calificacion: z.number().min(1).max(5),
   imagen: z.string(),
-  disponibilidad: z.number().default(1),
   stock: z.number()
 })
 
