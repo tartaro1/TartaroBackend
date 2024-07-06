@@ -28,7 +28,7 @@ export class ProductController {
                 // res.render("views.products.ejs", { products });
             }
         } catch (err) {
-            error(req, res, 500, "Error getting products");
+            error(req, res, 500, "Error getting products")
         }
     }
 
