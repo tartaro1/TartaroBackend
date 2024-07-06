@@ -15,6 +15,7 @@ import routesBills from "./routes.bills.js";
  */
 const indexRouter = Router();
 
+indexRouter.use("/bills", routesBills)
 indexRouter.use("/products", routesProducts);
 indexRouter.use("/users", routesUsers);
 indexRouter.use("/dealers", routesDelivers);
@@ -22,6 +23,5 @@ indexRouter.use("/orders", routesOrders);
 indexRouter.use("/detailsOrders", routesDetails);
 indexRouter.use("/backup", routesBackup);
 indexRouter.use("/gestion", routesGestion)
-indexRouter.use("/bills", routesBills)
 indexRouter.use("/doc", swaggerUi.serve,  swaggerUi.setup(swaggerFile))
 export default indexRouter;
