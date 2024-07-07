@@ -6,7 +6,7 @@ import { BackupsController } from "../controllers/backup.controller.js";
  */
 const routesBackup = Router();
 
+routesBackup.get("/create", BackupsController.create)
 routesBackup.get("/", BackupsController.getLatest);
-routesBackup.post("/", BackupsController.create)
 
 export default routesBackup;

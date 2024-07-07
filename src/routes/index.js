@@ -9,6 +9,8 @@ import routesGestion from "./routes.gestion.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../tools/swagger-output.json" assert {type: "json"}
 import routesBills from "./routes.bills.js";
+import routesProviders from "./routes.providers.js";
+import routesCategories from "./routes.category.js";
 /**
  * Estas son las rutas de mi proyecto
  * @type {Object}
@@ -23,5 +25,7 @@ indexRouter.use("/orders", routesOrders);
 indexRouter.use("/detailsOrders", routesDetails);
 indexRouter.use("/backup", routesBackup);
 indexRouter.use("/gestion", routesGestion)
+indexRouter.use("/providers", routesProviders)
+indexRouter.use("/categories", routesCategories)
 indexRouter.use("/doc", swaggerUi.serve,  swaggerUi.setup(swaggerFile))
 export default indexRouter;

@@ -1,0 +1,50 @@
+###
+POST http://localhost:9200/categories
+Content-Type: application/json
+
+{
+    "Nombre": "Farma",
+    "Descripcion": "asdasd",
+    "EstadoCategoria": "Activo"
+}
+###
+PUT http://localhost:9200/categories/7
+Content-Type: application/json
+
+{
+    "Nombre": "FarmaTODO",
+    "Descripcion": "asdasd",
+    "EstadoCategoria": "Activo"
+}
+
+###
+POST http://localhost:9200/providers
+Content-Type: application/json
+
+{
+    "Nombre": "D1",
+    "Direccion": "Asturias",
+    "Telefono": 90808998,
+    "Correo": "d1@gmail.com"
+}
+
+###
+PUT http://localhost:9200/providers/6
+Content-Type: application/json
+
+{
+    "Nombre": "D2",
+    "Direccion": "Asturias",
+    "Telefono": 90808998,
+    "Correo": "d1@gmail.com"
+}
+###
+DELETE http://localhost:9200/providers/6
+
+###
+GET http://localhost:9200/providers/3
+###
+DELETE http://localhost:9200/categories/6
+
+###
+GET http://localhost:9200/categories/3
