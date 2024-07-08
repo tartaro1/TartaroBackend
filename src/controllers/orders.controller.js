@@ -177,4 +177,12 @@ export class OrdersController {
             error(req, res, "An error occurred while sum collecting");
         }
     }
+    static async dailySales(req, res) {
+        try {
+            const daily = await OrderModel.dailySales();
+            res.json(daily);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }

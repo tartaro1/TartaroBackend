@@ -22,7 +22,17 @@ export class OrderModel {
             connection.release();
         }
     }
-
+    static async dailySales() {
+        const connection = await pool.getConnection();
+        try {
+            const [orders] = await connection.query("CALL SP_REPORTE_VENTAS_DIARIAS();");
+            return orders[0];
+        } catch (error) {
+            throw new Error(error);
+        } finally {
+            connection.release();
+        }
+    }
     /**
      * Obtiene un pedido por su ID.
      * @param {object} params - Parámetros de búsqueda.

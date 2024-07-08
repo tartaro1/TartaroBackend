@@ -123,4 +123,12 @@ export class ProductController {
             console.error(err);
         }
     }
+    static async stock(req, res) {
+        try {
+            const product = await ProductModel.stock();
+            res.json(product);
+        } catch (err) {
+            error(req, res, 500, "Product stock failed");
+        }
+    }
 }

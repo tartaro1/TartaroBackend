@@ -150,4 +150,16 @@ export class DetailsModel {
             connection.release();
         }
     }
+
+    static async findByProvider(idProvider) {
+        const connection = await pool.getConnection();
+        try {
+            const products = await connection.query("CALL SP_SELECCIONAR_PRODUCTOS_POR_PROVEEDOR(?)", [idProvider])
+            return products[0][0]
+        } catch (error) {
+            throw new Error(error)
+        } finally {
+            connection.release();
+        }
+    }
 }

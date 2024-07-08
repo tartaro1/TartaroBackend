@@ -7,5 +7,4 @@ routesProviders.get("/", ProviderController.getAll);
 routesProviders.post("/", ProviderController.create)
 routesProviders.put("/:id", ProviderController.update);
 routesProviders.delete("/:id", ProviderController.delete);
-
 export default routesProviders;

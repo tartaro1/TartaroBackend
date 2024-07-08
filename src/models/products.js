@@ -181,4 +181,15 @@ export class ProductModel {
             connection.release();
         }
     }
+    static async stock() {
+        const connection = await pool.getConnection();
+        try {
+            const [result] = await connection.query("CALL SP_REPORTE_STOCK_POR_PRODUCTO()");
+            return result[0];
+        } catch (error) {
+            throw new Error(error);
+        } finally {
+            connection.release();
+        }
+    } 
 }

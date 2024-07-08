@@ -5,6 +5,8 @@ import { OrdersController } from "../controllers/orders.controller.js";
  * @type {Object}
  */
 const routesOrders = Router();
+
+routesOrders.get("/daily", OrdersController.dailySales)
 routesOrders.get("/suma", OrdersController.sumSales)
 routesOrders.get("/sales", OrdersController.countSales);
 routesOrders.get("/", OrdersController.getAll);
@@ -13,4 +15,5 @@ routesOrders.post("/", OrdersController.create)
 routesOrders.patch("/:id", OrdersController.update);
 routesOrders.patch("/state/:id", OrdersController.updateState);
 routesOrders.delete("/:id", OrdersController.delete);
+
 export default routesOrders;

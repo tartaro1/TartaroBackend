@@ -48,3 +48,6 @@ DELETE http://localhost:9200/categories/6
 
 ###
 GET http://localhost:9200/categories/3
+
+###
+GET http://localhost:9200/detailsOrders?idProvider=3

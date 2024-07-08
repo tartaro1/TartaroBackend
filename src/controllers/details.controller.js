@@ -17,11 +17,16 @@ export class DetailsController {
     static async getAll(req, res) {
         try {
             const { provider } = req.query;
+            const {idProvider} = req.query;
             if (provider) {
                 const detailsOrdersFiltered = await DetailsModel.getByProvider({ provider });
                 res.status(200).json(detailsOrdersFiltered);
                 // res.render("views.filtered.ejs", { detailsOrdersFiltered });
-            } else {
+            } else if (idProvider) {
+                const productsProvider = await DetailsModel.findByProvider(idProvider)
+                res.json(productsProvider)
+            } 
+            else {
                 const detailsOrders = await DetailsModel.getAll();
                 res.status(200).json(detailsOrders);
                 // res.render("views.detailsOrder.ejs", { detailsOrders });
@@ -101,6 +106,15 @@ export class DetailsController {
             success(req, res, 201, "Successfully updated");
         } catch (err) {
             error(req, res, 404, "Error updating details");
+        }
+    }
+    static findByProvider = async(req, res) => {
+        try {
+            const {provider} = req.params;
+            const productsProvider = await DetailsModel.findByProvider({provider})
+            res.json(productsProvider)
+        } catch (error) {
+            console.error(error);
         }
     }
 }
