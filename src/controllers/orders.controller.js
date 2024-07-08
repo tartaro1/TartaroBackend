@@ -68,7 +68,7 @@ export class OrdersController {
             const PedidoID = await OrderModel.create({ input });
             success(req, res, 201, "Order created successfully", { PedidoID });
         } catch (err) {
-            console.error(err);
+           error(req, res, 500, "Error creating order")
         }
     }
 
@@ -106,7 +106,7 @@ export class OrdersController {
         const input = req.body;
         try {
             const updatedOrder = await OrderModel.updateState({ id, input });
-            res.status(200).json(updatedOrder);
+            success(req, res, 201, "Order State updated successfully");
         } catch (err) {
             error(req, res, 500, "Error updating order state");
         }
@@ -159,7 +159,7 @@ export class OrdersController {
             const sales = await OrderModel.countSales();
             res.json(sales);
         } catch (err) {
-            error(req, res, "An error occurred while processing");
+            error(req, res, 500, "An error occurred while processing");
         }
     }
 
@@ -174,15 +174,15 @@ export class OrdersController {
             const sum = await OrderModel.sumSales();
             res.json(sum);
         } catch (err) {
-            error(req, res, "An error occurred while sum collecting");
+            error(req, res, 500, "An error occurred while sum collecting");
         }
     }
     static async dailySales(req, res) {
         try {
             const daily = await OrderModel.dailySales();
             res.json(daily);
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            error(req, res, 500, "An error occurred while daily collecting");
         }
     }
 }

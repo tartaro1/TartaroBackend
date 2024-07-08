@@ -1,4 +1,4 @@
-import { success } from "../message/message.js";
+import { error, success } from "../message/message.js";
 import { BillModel } from "../models/bill.js";
 
 export class BillController {
@@ -8,7 +8,7 @@ export class BillController {
             const bill = await BillModel.getById({id});
             res.json(bill);
         } catch (err) {
-            console.error(err);
+            error(req, res, 404, "Bill not found");
         }
     }
 }

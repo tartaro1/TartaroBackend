@@ -67,7 +67,7 @@ export class DetailsController {
             await DetailsModel.create({ input });
             success(req, res, 201, "Product inserted successfully");
         } catch (err) {
-            console.error(err);
+            error(req, res, 500, "Error creating product")
         }
     }
 
@@ -113,8 +113,8 @@ export class DetailsController {
             const {provider} = req.params;
             const productsProvider = await DetailsModel.findByProvider({provider})
             res.json(productsProvider)
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            error(req, res, 401, "Provider not found")
         }
     }
 }

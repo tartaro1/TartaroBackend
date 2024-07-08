@@ -120,7 +120,7 @@ export class ProductController {
             const updatedProduct = await ProductModel.updateProduct({ id, input });
             success(req, res, 200, "Product updated successfully");
         } catch (err) {
-            console.error(err);
+            error(req, res, 404, "Product update failed");
         }
     }
     static async stock(req, res) {
