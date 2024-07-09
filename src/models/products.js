@@ -191,5 +191,16 @@ export class ProductModel {
         } finally {
             connection.release();
         }
+    }
+    static async top() {
+        const connection = await pool.getConnection();
+        try {
+            const [result] = await connection.query("CALL SP_TOP_PRODUCTOS()");
+            return result[0];
+        } catch (error) {
+            throw new Error(error);
+        } finally {
+            connection.release();
+        }
     } 
 }
