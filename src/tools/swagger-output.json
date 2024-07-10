@@ -11,6 +11,44 @@
     "https"
   ],
   "paths": {
+    "/bills/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/products/top": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/products/stock": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/products/{id}": {
       "get": {
         "description": "",
@@ -74,14 +112,51 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
       "post": {
         "description": "",
+        "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "nombre": {
+              "type": "string"
+            },
+            "id_categoria": {
+              "type": "number"
+            },
+            "marca": {
+              "type": "string"
+            },
+            "id_proveedor": {
+              "type": "number"
+            },
+            "descripcion": {
+              "type": "string"
+            },
+            "precio": {
+              "type": "number"
+            },
+            "calificacion": {
+              "type": "number"
+            },
+            "imagen": {
+              "type": "string"
+            },
+            "stock": {
+              "type": "integer"
+            }
+          },
+          "required": ["nombre", "id_categoria", "marca", "id_proveedor", "descripcion", "precio", "calificacion", "imagen", "stock"]
+        }
+      }
+    ],
         "responses": {
           "400": {
             "description": "Bad Request"
@@ -120,9 +195,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
@@ -287,6 +359,16 @@
         }
       }
     },
+    "/orders/daily": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/orders/suma": {
       "get": {
         "description": "",
@@ -407,8 +489,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -421,14 +503,16 @@
             "name": "provider",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "idProvider",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
@@ -491,7 +575,27 @@
         }
       }
     },
+    "/backup/create": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/backup/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/gestion/": {
       "get": {
         "description": "",
         "responses": {
@@ -509,7 +613,125 @@
         }
       }
     },
-    "/gestion/": {
+    "/providers/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/providers/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/categories/": {
       "get": {
         "description": "",
         "responses": {

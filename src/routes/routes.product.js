@@ -6,6 +6,7 @@ import {ProductController} from "../controllers/products.controller.js"
  */
 const routesProducts = Router();
 
+routesProducts.get("/most", ProductController.mostSales)
 routesProducts.get("/top", ProductController.top);
 routesProducts.get("/stock", ProductController.stock)
 routesProducts.get("/:id", ProductController.getById);

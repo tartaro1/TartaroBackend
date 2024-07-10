@@ -98,7 +98,7 @@ export class ProductModel {
      * @returns {Promise<object>} El producto creado.
      * @throws {Error} Si hay un error durante la creación del producto.
      */
-    static async createProduct({ input }) {
+    static async createProduct( input ) {
         const {
             nombre,
             id_categoria,
@@ -196,6 +196,17 @@ export class ProductModel {
         const connection = await pool.getConnection();
         try {
             const [result] = await connection.query("CALL SP_TOP_PRODUCTOS()");
+            return result[0];
+        } catch (error) {
+            throw new Error(error);
+        } finally {
+            connection.release();
+        }
+    } 
+    static async mostSales() {
+        const connection = await pool.getConnection();
+        try {
+            const [result] = await connection.query("CALL SP_OBTENER_PRODUCTOS_MAS_REPETIDOS();");
             return result[0];
         } catch (error) {
             throw new Error(error);

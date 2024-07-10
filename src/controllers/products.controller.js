@@ -74,11 +74,11 @@ export class ProductController {
      * @memberof ProductController
      */
     static async createProduct(req, res) {
-        const result = validateProduct(req.body);
+        const input = req.body
         if (result.error) {
             return res.status(400).json({ error: result.error.message });
         }
-        const newProduct = await ProductModel.createProduct({ input: result.data });
+        const newProduct = await ProductModel.createProduct( input );
         success(req, res, 201, "Product created successfully");
     }
 
@@ -134,6 +134,14 @@ export class ProductController {
     static async top(req, res) {
         try {
             const product = await ProductModel.top();
+            res.json(product);
+        } catch (err) {
+            error(req, res, 500, err.message);
+        }
+    }
+    static async mostSales(req, res) {
+        try {
+            const product = await ProductModel.mostSales();
             res.json(product);
         } catch (err) {
             error(req, res, 500, err.message);
