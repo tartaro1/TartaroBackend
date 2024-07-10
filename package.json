@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "doc": "jsdoc -c jsdoc.json",
-    "start": "node dist/index.js",
+    "start": "node src/index.js",
     "build": "babel src --out-dir dist",
     "swagger": "node ./src/tools/swagger.js",
     "swagger-dev": "node ./dist/tools/swagger.js",
