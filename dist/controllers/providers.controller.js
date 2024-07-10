@@ -12,13 +12,24 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _message = require("../message/message.js");
 var _provider = require("../models/provider.js");
+/**
+ * Controlador para las operaciones relacionadas con los proveedores
+ * @class ProviderController
+ */
 var ProviderController = exports.ProviderController = /*#__PURE__*/function () {
   function ProviderController() {
     (0, _classCallCheck2["default"])(this, ProviderController);
   }
   return (0, _createClass2["default"])(ProviderController, null, [{
     key: "getById",
-    value: function () {
+    value: (
+    /**
+     * Obtiene un proveedor por su ID
+     * @param {object} req - Objeto de solicitud Express
+     * @param {object} res - Objeto de respuesta Express
+     * @returns {Promise<void>}
+     */
+    function () {
       var _getById = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
         var id, provider;
         return _regenerator["default"].wrap(function _callee$(_context) {
@@ -50,9 +61,23 @@ var ProviderController = exports.ProviderController = /*#__PURE__*/function () {
       }
       return getById;
     }()
+    /**
+     * Crea un nuevo proveedor
+     * @param {object} req - Objeto de solicitud Express
+     * @param {object} res - Objeto de respuesta Express
+     * @returns {Promise<void>}
+     */
+    )
   }, {
     key: "delete",
-    value: function () {
+    value: (
+    /**
+     * Elimina un proveedor
+     * @param {object} req - Objeto de solicitud Express
+     * @param {object} res - Objeto de respuesta Express
+     * @returns {Promise<void>}
+     */
+    function () {
       var _delete2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
         var id, result;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
@@ -84,9 +109,15 @@ var ProviderController = exports.ProviderController = /*#__PURE__*/function () {
         return _delete2.apply(this, arguments);
       }
       return _delete;
-    }()
+    }())
   }]);
 }();
+/**
+ * Obtiene todos los proveedores
+ * @param {object} req - Objeto de solicitud Express
+ * @param {object} res - Objeto de respuesta Express
+ * @returns {Promise<void>}
+ */
 (0, _defineProperty2["default"])(ProviderController, "getAll", /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
     var providers;
@@ -146,6 +177,12 @@ var ProviderController = exports.ProviderController = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }());
+/**
+ * Actualiza un proveedor existente
+ * @param {object} req - Objeto de solicitud Express
+ * @param {object} res - Objeto de respuesta Express
+ * @returns {Promise<void>}
+ */
 (0, _defineProperty2["default"])(ProviderController, "update", /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
     var id, input, provider;

@@ -7,7 +7,7 @@ import routesDetails from "./routes.details.js";
 import routesBackup from "./routes.backup.js";
 import routesGestion from "./routes.gestion.js";
 import swaggerUi from "swagger-ui-express";
-import swaggerFile from "../tools/swagger-output.json" assert {type: "json"}
+import swaggerFile from "../tools/swagger-output.json";
 import routesBills from "./routes.bills.js";
 import routesProviders from "./routes.providers.js";
 import routesCategories from "./routes.category.js";

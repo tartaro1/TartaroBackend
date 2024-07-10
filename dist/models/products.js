@@ -246,42 +246,41 @@ var ProductModel = exports.ProductModel = /*#__PURE__*/function () {
   }, {
     key: "createProduct",
     value: (function () {
-      var _createProduct = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(_ref4) {
-        var input, nombre, id_categoria, marca, id_proveedor, descripcion, precio, calificacion, imagen, stock, connection, result, _yield$connection$que9, _yield$connection$que10, product;
+      var _createProduct = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(input) {
+        var nombre, id_categoria, marca, id_proveedor, descripcion, precio, calificacion, imagen, stock, connection, result, _yield$connection$que9, _yield$connection$que10, product;
         return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              input = _ref4.input;
               nombre = input.nombre, id_categoria = input.id_categoria, marca = input.marca, id_proveedor = input.id_proveedor, descripcion = input.descripcion, precio = input.precio, calificacion = input.calificacion, imagen = input.imagen, stock = input.stock;
-              _context5.next = 4;
+              _context5.next = 3;
               return _dbConfig["default"].getConnection();
-            case 4:
+            case 3:
               connection = _context5.sent;
-              _context5.prev = 5;
-              _context5.next = 8;
+              _context5.prev = 4;
+              _context5.next = 7;
               return connection.query("CALL SP_AÑADIR_PRODUCTO(?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, id_categoria, marca, id_proveedor, descripcion, precio, calificacion, imagen, stock]);
-            case 8:
+            case 7:
               result = _context5.sent;
-              _context5.next = 11;
+              _context5.next = 10;
               return connection.query("CALL SP_LISTAR_PRODUCTO(?)", [result[0].insertId]);
-            case 11:
+            case 10:
               _yield$connection$que9 = _context5.sent;
               _yield$connection$que10 = (0, _slicedToArray2["default"])(_yield$connection$que9, 1);
               product = _yield$connection$que10[0];
               return _context5.abrupt("return", product[0]);
-            case 17:
-              _context5.prev = 17;
-              _context5.t0 = _context5["catch"](5);
+            case 16:
+              _context5.prev = 16;
+              _context5.t0 = _context5["catch"](4);
               throw new Error(_context5.t0);
-            case 20:
-              _context5.prev = 20;
+            case 19:
+              _context5.prev = 19;
               connection.release();
-              return _context5.finish(20);
-            case 23:
+              return _context5.finish(19);
+            case 22:
             case "end":
               return _context5.stop();
           }
-        }, _callee5, null, [[5, 17, 20, 23]]);
+        }, _callee5, null, [[4, 16, 19, 22]]);
       }));
       function createProduct(_x4) {
         return _createProduct.apply(this, arguments);
@@ -299,12 +298,12 @@ var ProductModel = exports.ProductModel = /*#__PURE__*/function () {
   }, {
     key: "deleteProduct",
     value: (function () {
-      var _deleteProduct = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(_ref5) {
+      var _deleteProduct = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(_ref4) {
         var id, connection, _yield$connection$que11, _yield$connection$que12, result;
         return _regenerator["default"].wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              id = _ref5.id;
+              id = _ref4.id;
               _context6.next = 3;
               return _dbConfig["default"].getConnection();
             case 3:
@@ -358,12 +357,12 @@ var ProductModel = exports.ProductModel = /*#__PURE__*/function () {
   }, {
     key: "updateProduct",
     value: (function () {
-      var _updateProduct = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(_ref6) {
+      var _updateProduct = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(_ref5) {
         var id, input, NombreProducto, ID_Categoria, Marca, ID_Proveedor, Descripcion, PrecioVenta, Calificacion, imagen, stock, connection, result;
         return _regenerator["default"].wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              id = _ref6.id, input = _ref6.input;
+              id = _ref5.id, input = _ref5.input;
               NombreProducto = input.NombreProducto, ID_Categoria = input.ID_Categoria, Marca = input.Marca, ID_Proveedor = input.ID_Proveedor, Descripcion = input.Descripcion, PrecioVenta = input.PrecioVenta, Calificacion = input.Calificacion, imagen = input.imagen, stock = input.stock;
               _context7.next = 4;
               return _dbConfig["default"].getConnection();
@@ -471,6 +470,45 @@ var ProductModel = exports.ProductModel = /*#__PURE__*/function () {
         return _top.apply(this, arguments);
       }
       return top;
+    }()
+  }, {
+    key: "mostSales",
+    value: function () {
+      var _mostSales = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10() {
+        var connection, _yield$connection$que17, _yield$connection$que18, result;
+        return _regenerator["default"].wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
+            case 0:
+              _context10.next = 2;
+              return _dbConfig["default"].getConnection();
+            case 2:
+              connection = _context10.sent;
+              _context10.prev = 3;
+              _context10.next = 6;
+              return connection.query("CALL SP_OBTENER_PRODUCTOS_MAS_REPETIDOS();");
+            case 6:
+              _yield$connection$que17 = _context10.sent;
+              _yield$connection$que18 = (0, _slicedToArray2["default"])(_yield$connection$que17, 1);
+              result = _yield$connection$que18[0];
+              return _context10.abrupt("return", result[0]);
+            case 12:
+              _context10.prev = 12;
+              _context10.t0 = _context10["catch"](3);
+              throw new Error(_context10.t0);
+            case 15:
+              _context10.prev = 15;
+              connection.release();
+              return _context10.finish(15);
+            case 18:
+            case "end":
+              return _context10.stop();
+          }
+        }, _callee10, null, [[3, 12, 15, 18]]);
+      }));
+      function mostSales() {
+        return _mostSales.apply(this, arguments);
+      }
+      return mostSales;
     }()
   }]);
 }();

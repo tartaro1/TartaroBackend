@@ -13,9 +13,20 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _promise = _interopRequireDefault(require("mysql2/promise"));
 var _dbConfig = _interopRequireDefault(require("../config/db.config.js"));
+/**
+ * Modelo para operaciones relacionadas con las facturas en la base de datos.
+ * @class BillModel
+ */
 var BillModel = exports.BillModel = /*#__PURE__*/(0, _createClass2["default"])(function BillModel() {
   (0, _classCallCheck2["default"])(this, BillModel);
 });
+/**
+ * Obtiene los detalles de una factura por su ID.
+ * @param {object} params - Parámetros para obtener la factura.
+ * @param {number} params.id - ID de la factura.
+ * @returns {Promise<object>} Objeto con la información de la factura y sus productos.
+ * @throws {Error} Si hay un error durante la consulta.
+ */
 (0, _defineProperty2["default"])(BillModel, "getById", /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(_ref) {
     var id, connection, _yield$connection$que, _yield$connection$que2, results, fields, facturaInfo, productosInfo;

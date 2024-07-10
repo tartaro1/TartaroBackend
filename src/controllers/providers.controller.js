@@ -1,7 +1,17 @@
 import { error, success } from "../message/message.js";
 import { ProviderModel } from "../models/provider.js";
 
+/**
+ * Controlador para las operaciones relacionadas con los proveedores
+ * @class ProviderController
+ */
 export class ProviderController {
+    /**
+     * Obtiene todos los proveedores
+     * @param {object} req - Objeto de solicitud Express
+     * @param {object} res - Objeto de respuesta Express
+     * @returns {Promise<void>}
+     */
     static getAll = async(req, res) => {
         try {
             const providers = await ProviderModel.getAll();
@@ -10,6 +20,13 @@ export class ProviderController {
             console.error(err);
         }
     }
+
+    /**
+     * Obtiene un proveedor por su ID
+     * @param {object} req - Objeto de solicitud Express
+     * @param {object} res - Objeto de respuesta Express
+     * @returns {Promise<void>}
+     */
     static async getById(req, res) {
         try {
             const { id } = req.params;
@@ -19,6 +36,13 @@ export class ProviderController {
             error(req, res, 404, "provider not found");
         }
     }
+
+    /**
+     * Crea un nuevo proveedor
+     * @param {object} req - Objeto de solicitud Express
+     * @param {object} res - Objeto de respuesta Express
+     * @returns {Promise<void>}
+     */
     static create = async(req, res) => {
         try {
             const input = req.body;
@@ -28,6 +52,13 @@ export class ProviderController {
             console.error(error);
         }
     }
+
+    /**
+     * Actualiza un proveedor existente
+     * @param {object} req - Objeto de solicitud Express
+     * @param {object} res - Objeto de respuesta Express
+     * @returns {Promise<void>}
+     */
     static update = async(req, res) => {
         try {
             const {id} = req.params;
@@ -38,6 +69,13 @@ export class ProviderController {
             console.error(error);
         }
     }
+
+    /**
+     * Elimina un proveedor
+     * @param {object} req - Objeto de solicitud Express
+     * @param {object} res - Objeto de respuesta Express
+     * @returns {Promise<void>}
+     */
     static async delete(req, res) {
         const { id } = req.params;
         const result = await ProviderModel.delete({ id });

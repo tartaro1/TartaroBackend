@@ -174,11 +174,11 @@ var ProductController = exports.ProductController = /*#__PURE__*/function () {
     key: "createProduct",
     value: (function () {
       var _createProduct = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
-        var result, newProduct;
+        var input, newProduct;
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              result = (0, _product.validateProduct)(req.body);
+              input = req.body;
               if (!result.error) {
                 _context4.next = 3;
                 break;
@@ -188,9 +188,7 @@ var ProductController = exports.ProductController = /*#__PURE__*/function () {
               }));
             case 3:
               _context4.next = 5;
-              return _products2.ProductModel.createProduct({
-                input: result.data
-              });
+              return _products2.ProductModel.createProduct(input);
             case 5:
               newProduct = _context4.sent;
               (0, _message.success)(req, res, 201, "Product created successfully");
@@ -218,7 +216,7 @@ var ProductController = exports.ProductController = /*#__PURE__*/function () {
     key: "deleteProduct",
     value: (function () {
       var _deleteProduct = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
-        var id, result;
+        var id, _result;
         return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
@@ -229,8 +227,8 @@ var ProductController = exports.ProductController = /*#__PURE__*/function () {
                 id: id
               });
             case 4:
-              result = _context5.sent;
-              if (result.affectedRows === 0) {
+              _result = _context5.sent;
+              if (_result.affectedRows === 0) {
                 (0, _message.error)(req, res, 404, "Product not deleted successfully");
               } else {
                 (0, _message.success)(req, res, 201, "Product deleted successfully");
@@ -359,6 +357,37 @@ var ProductController = exports.ProductController = /*#__PURE__*/function () {
         return _top.apply(this, arguments);
       }
       return top;
+    }()
+  }, {
+    key: "mostSales",
+    value: function () {
+      var _mostSales = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res) {
+        var product;
+        return _regenerator["default"].wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.prev = 0;
+              _context9.next = 3;
+              return _products2.ProductModel.mostSales();
+            case 3:
+              product = _context9.sent;
+              res.json(product);
+              _context9.next = 10;
+              break;
+            case 7:
+              _context9.prev = 7;
+              _context9.t0 = _context9["catch"](0);
+              (0, _message.error)(req, res, 500, _context9.t0.message);
+            case 10:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9, null, [[0, 7]]);
+      }));
+      function mostSales(_x17, _x18) {
+        return _mostSales.apply(this, arguments);
+      }
+      return mostSales;
     }()
   }]);
 }();

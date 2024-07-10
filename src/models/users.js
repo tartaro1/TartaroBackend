@@ -7,6 +7,52 @@ import jwt from "jsonwebtoken";
  * Modelo para operaciones relacionadas con los usuarios en la base de datos.
  * @class UserModel
  */
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - Nombre
+ *         - Celular
+ *         - Cedula
+ *         - Direccion
+ *         - Correo
+ *         - Contrasena
+ *         - ID_Rol
+ *         - Estado
+ *       properties:
+ *         ID_Usuario:
+ *           type: integer
+ *           description: ID único del usuario
+ *         Nombre:
+ *           type: string
+ *           description: Nombre completo del usuario
+ *         Celular:
+ *           type: string
+ *           description: Número de celular del usuario
+ *         Cedula:
+ *           type: string
+ *           description: Número de cédula del usuario
+ *         Direccion:
+ *           type: string
+ *           description: Dirección del usuario
+ *         Correo:
+ *           type: string
+ *           format: email
+ *           description: Correo electrónico del usuario
+ *         Contrasena:
+ *           type: string
+ *           format: password
+ *           description: Contraseña del usuario
+ *         ID_Rol:
+ *           type: integer
+ *           description: ID del rol del usuario
+ *         Estado:
+ *           type: integer
+ *           description: Estado del usuario
+ */
 export class UserModel {
     /**
      * Obtiene todos los usuarios almacenados en la base de datos.
@@ -80,6 +126,30 @@ export class UserModel {
      * @returns {Promise<object>} El usuario creado.
      * @throws {Error} Si hay un error durante la creación del usuario.
      */
+    /**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Crea un nuevo usuario
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       201:
+ *         description: Usuario creado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Datos inválidos
+ *       500:
+ *         description: Error del servidor
+ */
     static async createUser({ input }) {
         const {
             Nombre,

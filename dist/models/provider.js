@@ -13,13 +13,25 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _promise = _interopRequireDefault(require("mysql2/promise"));
 var _dbConfig = _interopRequireDefault(require("../config/db.config.js"));
+/**
+ * Modelo para operaciones relacionadas con los proveedores en la base de datos.
+ * @class ProviderModel
+ */
 var ProviderModel = exports.ProviderModel = /*#__PURE__*/function () {
   function ProviderModel() {
     (0, _classCallCheck2["default"])(this, ProviderModel);
   }
   return (0, _createClass2["default"])(ProviderModel, null, [{
     key: "getById",
-    value: function () {
+    value: (
+    /**
+     * Obtiene un proveedor por su ID.
+     * @param {object} params - Parámetros para obtener el proveedor.
+     * @param {number} params.id - ID del proveedor.
+     * @returns {Promise<object>} Objeto con la información del proveedor.
+     * @throws {Error} Si el proveedor no se encuentra o hay un error durante la consulta.
+     */
+    function () {
       var _getById = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(_ref) {
         var id, connection, _yield$connection$que, _yield$connection$que2, provider;
         return _regenerator["default"].wrap(function _callee$(_context) {
@@ -63,9 +75,29 @@ var ProviderModel = exports.ProviderModel = /*#__PURE__*/function () {
       }
       return getById;
     }()
+    /**
+     * Crea un nuevo proveedor.
+     * @param {object} params - Parámetros para crear el proveedor.
+     * @param {object} params.input - Datos del nuevo proveedor.
+     * @param {string} params.input.Nombre - Nombre del proveedor.
+     * @param {string} params.input.Direccion - Dirección del proveedor.
+     * @param {string} params.input.Telefono - Teléfono del proveedor.
+     * @param {string} params.input.Correo - Correo electrónico del proveedor.
+     * @returns {Promise<object>} Objeto con la información del proveedor creado.
+     * @throws {Error} Si hay un error durante la creación.
+     */
+    )
   }, {
     key: "delete",
-    value: function () {
+    value: (
+    /**
+     * Elimina un proveedor por su ID.
+     * @param {object} params - Parámetros para eliminar el proveedor.
+     * @param {number} params.id - ID del proveedor a eliminar.
+     * @returns {Promise<object>} Resultado de la eliminación.
+     * @throws {Error} Si hay un error durante la eliminación.
+     */
+    function () {
       var _delete2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(_ref2) {
         var id, connection, _yield$connection$que3, _yield$connection$que4, result;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
@@ -102,9 +134,14 @@ var ProviderModel = exports.ProviderModel = /*#__PURE__*/function () {
         return _delete2.apply(this, arguments);
       }
       return _delete;
-    }()
+    }())
   }]);
 }();
+/**
+ * Obtiene todos los proveedores.
+ * @returns {Promise<Array>} Array con todos los proveedores.
+ * @throws {Error} Si hay un error durante la consulta.
+ */
 (0, _defineProperty2["default"])(ProviderModel, "getAll", /*#__PURE__*/(0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3() {
   var connection, _yield$connection$que5, _yield$connection$que6, providers;
   return _regenerator["default"].wrap(function _callee3$(_context3) {
@@ -175,6 +212,18 @@ var ProviderModel = exports.ProviderModel = /*#__PURE__*/function () {
     return _ref5.apply(this, arguments);
   };
 }());
+/**
+ * Actualiza un proveedor existente.
+ * @param {object} params - Parámetros para actualizar el proveedor.
+ * @param {number} params.id - ID del proveedor a actualizar.
+ * @param {object} params.input - Nuevos datos del proveedor.
+ * @param {string} params.input.Nombre - Nuevo nombre del proveedor.
+ * @param {string} params.input.Direccion - Nueva dirección del proveedor.
+ * @param {string} params.input.Telefono - Nuevo teléfono del proveedor.
+ * @param {string} params.input.Correo - Nuevo correo electrónico del proveedor.
+ * @returns {Promise<object>} Resultado de la actualización.
+ * @throws {Error} Si hay un error durante la actualización.
+ */
 (0, _defineProperty2["default"])(ProviderModel, "update", /*#__PURE__*/function () {
   var _ref7 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(_ref6) {
     var id, input, Nombre, Direccion, Telefono, Correo, connection, result;

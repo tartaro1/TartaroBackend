@@ -12,9 +12,19 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _message = require("../message/message.js");
 var _bill = require("../models/bill.js");
+/**
+ * Controlador para las operaciones relacionadas con las facturas
+ * @class BillController
+ */
 var BillController = exports.BillController = /*#__PURE__*/(0, _createClass2["default"])(function BillController() {
   (0, _classCallCheck2["default"])(this, BillController);
 });
+/**
+ * Obtiene una factura por su ID
+ * @param {object} req - Objeto de solicitud Express
+ * @param {object} res - Objeto de respuesta Express
+ * @returns {Promise<void>}
+ */
 (0, _defineProperty2["default"])(BillController, "getById", /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
     var id, bill;

@@ -11,6 +11,7 @@ var _productsController = require("../controllers/products.controller.js");
  * @type {Object}
  */
 var routesProducts = (0, _express.Router)();
+routesProducts.get("/most", _productsController.ProductController.mostSales);
 routesProducts.get("/top", _productsController.ProductController.top);
 routesProducts.get("/stock", _productsController.ProductController.stock);
 routesProducts.get("/:id", _productsController.ProductController.getById);

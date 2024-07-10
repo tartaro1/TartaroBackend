@@ -13,13 +13,25 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _promise = _interopRequireDefault(require("mysql2/promise"));
 var _dbConfig = _interopRequireDefault(require("../config/db.config.js"));
+/**
+ * Modelo para operaciones relacionadas con las categorías en la base de datos.
+ * @class CategoryModel
+ */
 var CategoryModel = exports.CategoryModel = /*#__PURE__*/function () {
   function CategoryModel() {
     (0, _classCallCheck2["default"])(this, CategoryModel);
   }
   return (0, _createClass2["default"])(CategoryModel, null, [{
     key: "getById",
-    value: function () {
+    value: (
+    /**
+     * Obtiene una categoría por su ID.
+     * @param {object} params - Parámetros para obtener la categoría.
+     * @param {number} params.id - ID de la categoría.
+     * @returns {Promise<object>} Objeto con la información de la categoría.
+     * @throws {Error} Si la categoría no se encuentra o hay un error durante la consulta.
+     */
+    function () {
       var _getById = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(_ref) {
         var id, connection, _yield$connection$que, _yield$connection$que2, category;
         return _regenerator["default"].wrap(function _callee$(_context) {
@@ -63,9 +75,28 @@ var CategoryModel = exports.CategoryModel = /*#__PURE__*/function () {
       }
       return getById;
     }()
+    /**
+     * Crea una nueva categoría.
+     * @param {object} params - Parámetros para crear la categoría.
+     * @param {object} params.input - Datos de la nueva categoría.
+     * @param {string} params.input.Nombre - Nombre de la categoría.
+     * @param {string} params.input.Descripcion - Descripción de la categoría.
+     * @param {number} params.input.EstadoCategoria - Estado de la categoría.
+     * @returns {Promise<object>} Objeto con la información de la categoría creada.
+     * @throws {Error} Si hay un error durante la creación.
+     */
+    )
   }, {
     key: "delete",
-    value: function () {
+    value: (
+    /**
+     * Elimina una categoría por su ID.
+     * @param {object} params - Parámetros para eliminar la categoría.
+     * @param {number} params.id - ID de la categoría a eliminar.
+     * @returns {Promise<object>} Resultado de la eliminación.
+     * @throws {Error} Si hay un error durante la eliminación.
+     */
+    function () {
       var _delete2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(_ref2) {
         var id, connection, _yield$connection$que3, _yield$connection$que4, result;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
@@ -102,9 +133,14 @@ var CategoryModel = exports.CategoryModel = /*#__PURE__*/function () {
         return _delete2.apply(this, arguments);
       }
       return _delete;
-    }()
+    }())
   }]);
 }();
+/**
+ * Obtiene todas las categorías.
+ * @returns {Promise<Array>} Array con todas las categorías.
+ * @throws {Error} Si hay un error durante la consulta.
+ */
 (0, _defineProperty2["default"])(CategoryModel, "getAll", /*#__PURE__*/(0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3() {
   var connection, _yield$connection$que5, _yield$connection$que6, categories;
   return _regenerator["default"].wrap(function _callee3$(_context3) {
@@ -174,6 +210,17 @@ var CategoryModel = exports.CategoryModel = /*#__PURE__*/function () {
     return _ref5.apply(this, arguments);
   };
 }());
+/**
+ * Actualiza una categoría existente.
+ * @param {object} params - Parámetros para actualizar la categoría.
+ * @param {number} params.id - ID de la categoría a actualizar.
+ * @param {object} params.input - Nuevos datos de la categoría.
+ * @param {string} params.input.Nombre - Nuevo nombre de la categoría.
+ * @param {string} params.input.Descripcion - Nueva descripción de la categoría.
+ * @param {number} params.input.EstadoCategoria - Nuevo estado de la categoría.
+ * @returns {Promise<object>} Resultado de la actualización.
+ * @throws {Error} Si hay un error durante la actualización.
+ */
 (0, _defineProperty2["default"])(CategoryModel, "update", /*#__PURE__*/function () {
   var _ref7 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(_ref6) {
     var id, input, Nombre, Descripcion, EstadoCategoria, connection, result;
