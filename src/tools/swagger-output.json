@@ -1,14 +1,27 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My API",
+    "title": "My API Tartaro",
     "description": "Description",
     "version": "1.0.0"
   },
-  "host": "ms-backend-tartaro.onrender.com",
+  "host": "localhost:9200",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "User",
+      "description": "Endpoints"
+    }
+  ],
   "schemes": [
+    "http",
     "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
   ],
   "paths": {
     "/bills/{id}": {
@@ -127,46 +140,11 @@
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nombre": {
-                  "type": "string"
-                },
-                "id_categoria": {
-                  "type": "number"
-                },
-                "marca": {
-                  "type": "string"
-                },
-                "id_proveedor": {
-                  "type": "number"
-                },
-                "descripcion": {
-                  "type": "string"
-                },
-                "precio": {
-                  "type": "number"
-                },
-                "calificacion": {
-                  "type": "number"
-                },
-                "imagen": {
-                  "type": "string"
-                },
-                "stock": {
-                  "type": "integer"
-                }
-              },
-              "required": ["nombre", "id_categoria", "marca", "id_proveedor", "descripcion", "precio", "calificacion", "imagen", "stock"]
-            }
+        "responses": {
+          "400": {
+            "description": "Bad Request"
           }
-        ]
+        }
       }
     },
     "/products/{name}": {
@@ -204,89 +182,10 @@
         }
       },
       "post": {
-        "description": "Crea un nuevo usuario",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "Nombre": {
-                  "type": "string"
-                },
-                "Celular": {
-                  "type": "string"
-                },
-                "Cedula": {
-                  "type": "string"
-                },
-                "Direccion": {
-                  "type": "string"
-                },
-                "Correo": {
-                  "type": "string",
-                  "format": "email"
-                },
-                "Contrasena": {
-                  "type": "string",
-                  "format": "password"
-                },
-                "ID_Rol": {
-                  "type": "integer"
-                },
-                "Estado": {
-                  "type": "integer"
-                }
-              },
-              "required": ["Nombre", "Celular", "Cedula", "Direccion", "Correo", "Contrasena", "ID_Rol", "Estado"]
-            }
-          }
-        ],
+        "description": "",
         "responses": {
-          "201": {
-            "description": "Usuario creado exitosamente"
-          },
           "400": {
-            "description": "Error en los datos proporcionados"
-          },
-          "500": {
-            "description": "Error interno del servidor"
-          }
-        }
-      }
-    },
-    "/users/login": {
-      "post": {
-        "description": "Autentica un usuario",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "Correo": {
-                  "type": "string",
-                  "format": "email"
-                },
-                "Contrasena": {
-                  "type": "string",
-                  "format": "password"
-                }
-              },
-              "required": ["Correo", "Contrasena"]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Autenticación exitosa"
-          },
-          "400": {
-            "description": "Email o contraseña incorrectos"
+            "description": "Bad Request"
           }
         }
       }
@@ -385,55 +284,10 @@
         }
       },
       "post": {
-        "description": "Crea un nuevo distribuidor",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "Nombre": {
-                  "type": "string"
-                },
-                "Celular": {
-                  "type": "string"
-                },
-                "Cedula": {
-                  "type": "string"
-                },
-                "Direccion": {
-                  "type": "string"
-                },
-                "Correo": {
-                  "type": "string",
-                  "format": "email"
-                },
-                "Contrasena": {
-                  "type": "string",
-                  "format": "password"
-                },
-                "ID_Rol": {
-                  "type": "integer"
-                },
-                "Estado": {
-                  "type": "integer"
-                }
-              },
-              "required": ["Nombre", "Celular", "Cedula", "Direccion", "Correo", "Contrasena", "ID_Rol", "Estado"]
-            }
-          }
-        ],
+        "description": "",
         "responses": {
-          "201": {
-            "description": "Distribuidor creado exitosamente"
-          },
           "400": {
-            "description": "Error en los datos proporcionados"
-          },
-          "500": {
-            "description": "Error interno del servidor"
+            "description": "Bad Request"
           }
         }
       }
@@ -482,8 +336,8 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -541,50 +395,14 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "description": "Crea un nuevo pedido",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "ID_Usuario": {
-                  "type": "integer"
-                },
-                "ID_Repartidor": {
-                  "type": "integer"
-                },
-                "Fecha_Pedido": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "Estado_Pedido": {
-                  "type": "string"
-                },
-                "Total": {
-                  "type": "number",
-                  "format": "float"
-                }
-              },
-              "required": ["ID_Usuario", "ID_Repartidor", "Fecha_Pedido", "Estado_Pedido", "Total"]
-            }
-          }
-        ],
+        "description": "",
         "responses": {
-          "201": {
-            "description": "Pedido creado exitosamente"
-          },
-          "500": {
-            "description": "Error interno del servidor"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -679,39 +497,10 @@
         }
       },
       "post": {
-        "description": "Crea un nuevo detalle de pedido",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "ID_Pedido": {
-                  "type": "integer"
-                },
-                "ID_Producto": {
-                  "type": "integer"
-                },
-                "Cantidad": {
-                  "type": "integer"
-                },
-                "Precio_Unitario": {
-                  "type": "number",
-                  "format": "float"
-                }
-              },
-              "required": ["ID_Pedido", "ID_Producto", "Cantidad", "Precio_Unitario"]
-            }
-          }
-        ],
+        "description": "",
         "responses": {
-          "201": {
-            "description": "Detalle de pedido creado exitosamente"
-          },
-          "500": {
-            "description": "Error interno del servidor"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -864,42 +653,10 @@
         }
       },
       "post": {
-        "description": "Crea un nuevo proveedor",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "Nombre": {
-                  "type": "string"
-                },
-                "Direccion": {
-                  "type": "string"
-                },
-                "Telefono": {
-                  "type": "string"
-                },
-                "Email": {
-                  "type": "string",
-                  "format": "email"
-                },
-                "NIT": {
-                  "type": "string"
-                }
-              },
-              "required": ["Nombre", "Direccion", "Telefono", "Email", "NIT"]
-            }
-          }
-        ],
+        "description": "",
         "responses": {
-          "200": {
-            "description": "Proveedor creado exitosamente"
-          },
-          "500": {
-            "description": "Error interno del servidor"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -964,32 +721,30 @@
         }
       },
       "post": {
-        "description": "Crea una nueva categoría",
+        "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "Nombre": {
-                  "type": "string"
+                  "example": "any"
                 },
                 "Descripcion": {
-                  "type": "string"
+                  "example": "any"
+                },
+                "EstadoCategoria": {
+                  "example": "any"
                 }
-              },
-              "required": ["Nombre"]
+              }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Categoría creada exitosamente"
-          },
-          "500": {
-            "description": "Error interno del servidor"
+          "default": {
+            "description": ""
           }
         }
       }
