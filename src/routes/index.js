@@ -7,7 +7,7 @@ import routesDetails from "./routes.details.js";
 import routesBackup from "./routes.backup.js";
 import routesGestion from "./routes.gestion.js";
 import swaggerUi from "swagger-ui-express";
-import swaggerFile from "../tools/swagger-output.json";
+import { createRequire } from "node:module";
 import routesBills from "./routes.bills.js";
 import routesProviders from "./routes.providers.js";
 import routesCategories from "./routes.category.js";
@@ -16,6 +16,9 @@ import routesCategories from "./routes.category.js";
  * @type {Object}
  */
 const indexRouter = Router();
+
+const require = createRequire(import.meta.url);
+const swaggerFile = require("../tools/swagger-output.json");
 
 indexRouter.use("/bills", routesBills)
 indexRouter.use("/products", routesProducts);
@@ -27,5 +30,5 @@ indexRouter.use("/backup", routesBackup);
 indexRouter.use("/gestion", routesGestion)
 indexRouter.use("/providers", routesProviders)
 indexRouter.use("/categories", routesCategories)
-indexRouter.use("/doc", swaggerUi.serve,  swaggerUi.setup(swaggerFile))
+indexRouter.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 export default indexRouter;
